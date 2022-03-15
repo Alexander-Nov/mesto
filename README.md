@@ -12,5 +12,5 @@
 
 **Ссылка на GitHub Pages**
 
-[Ссылка](https://alexander-nov.github.io/russian-travel/index.html)
+[Ссылка](https://alexander-nov.github.io/mesto/)
 
