@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesto Russia</title>
+    <link rel="stylesheet" href="pages/index.css">
+</head>
+<body>
+    <div class="page">
+        <header class="header">
+            <img class="header__logo" src="./images/header-logo.svg" alt="Логотип с надписью Место Россия">
+            <div class="header__line"></div>
+        </header>
+        
+        <main class="main-content">
+            <section class="profile">
+                <img class="profile__avatar" src="./images/сousteau-avatar.jpg" alt="Изображение пользователя - аватар">
+                <div class="profile__info">
+                    <div class="profile__top-line">
+                        <h1 class="profile__name">Жак-Ив Кусто</h1>
+                        <img class="profile__edit-button" src="./images/profile-edit-button.svg" alt="Кнопка редактирования профиля">
+                    </div>
+                    <p class="profile__description">Исследователь океана</p>
+                </div>
+                <!-- <img class="profile__add-button" src="./images/add-button.svg" alt="Кнопка добавления"> -->
+                <button class="profile__add-button"><img src="./images/plus-sign.svg" alt="Кнопка добавления статьи"></button>
+            </section>
+
+            <section class="elements">
+                <div class="element">
+                    <img class="element__image" src="./images/karachaevsk.jpg" alt="Фото Карачаевска">
+                    <div class="element__title-block">
+                        <h2 class="element__title">Карачаевск</h2>
+                        <img class="element__heart" src="./images/heart.svg" alt="Флажок Избранного">
+                    </div>
+                </div>
+                <div class="element">
+                    <img class="element__image" src="./images/elbrus.jpg" alt="Фото Эльбруса">
+                    <div class="element__title-block">
+                        <h2 class="element__title">Гора Эльбрус</h2>
+                        <img class="element__heart" src="./images/heart.svg" alt="Флажок Избранного">
+                    </div>
+                </div>
+                <div class="element">
+                    <img class="element__image" src="./images/dombay.jpg" alt="Фото Домбай">
+                    <div class="element__title-block">
+                        <h2 class="element__title">Домбай</h2>
+                        <img class="element__heart" src="./images/heart.svg" alt="Флажок Избранного">
+                    </div>
+                </div>
+                <div class="element">
+                    <img class="element__image" src="./images/elbrus2.jpg" alt="Фото Эльбруса">
+                    <div class="element__title-block">
+                        <h2 class="element__title">Гора Эльбрус</h2>
+                        <img class="element__heart" src="./images/heart.svg" alt="Флажок Избранного">
+                    </div>
+                </div>
+                <div class="element">
+                    <img class="element__image" src="./images/dombay2.jpg" alt="Фото Домбай">
+                    <div class="element__title-block">
+                        <h2 class="element__title">Домбай</h2>
+                        <img class="element__heart" src="./images/heart.svg" alt="Флажок Избранного">
+                    </div>
+                </div>
+                <div class="element">
+                    <img class="element__image" src="./images/karachaevo2.jpg" alt="Фото Карачаево-Черкессии">
+                    <div class="element__title-block">
+                        <h2 class="element__title">Карачаево-Черкессия</h2>
+                        <img class="element__heart" src="./images/heart.svg" alt="Флажок Избранного">
+                    </div>
+                </div>
+            </section>
+            
+            <footer class="footer">
+                <p class="footer__text">© 2022 Mesto Russia</p>
+            </footer>
+
+        </main>
+        <section class="edit-section">
+            <form class="edit-form">
+                <h2 class="edit-form__title">Редактировать профиль</h2>
+                <fieldset class="edit-form__fieldset">
+                    <input type="text" class="edit-form__input-name" name="input-name" value="">
+                    <input type="text" class="edit-form__input-prof" name="input-prof" value="">
+                    <button type="submit" class="edit-form__submitbtn">Сохранить</button>
+                    
+                </fieldset>
+                <img class="edit-form__closebtn" src="./images/close-icon.svg" alt="Кнопка закрытия формы">
+            </form>
+        </section>
+    </div>
+    <script src="./scripts/index.js"></script>
+</body>
+</html>

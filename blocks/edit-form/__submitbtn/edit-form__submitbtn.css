@@ -1,0 +1,24 @@
+.edit-form__submitbtn {
+    width: 358px;
+    height: 50px;
+    background-color: black;
+    color: white;
+    border-radius: 2px;
+    text-align: center;
+    margin: 0 36px 37px 36px;
+}
+
+.edit-form__submitbtn:hover {
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+
+
+@media screen and (max-width: 550px) {
+    .edit-form__submitbtn {
+        width: 238px;
+        margin: 0 20px 25px 20px;
+    }
+    
+}
