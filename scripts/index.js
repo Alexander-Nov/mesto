@@ -1,48 +1,38 @@
-let popupElement = document.querySelector('.edit-section');
-let editButton = document.querySelector('.profile__edit-button');
-let closeButton = popupElement.querySelector('.edit-form__closebtn');
-let saveButton = popupElement.querySelector('.edit-form__submitbtn');
+const popupElement = document.querySelector(".edit-section");
+const editButton = document.querySelector(".profile__edit-button");
+const closeButton = popupElement.querySelector(".edit-form__closebtn");
+const saveButton = popupElement.querySelector(".edit-form__submitbtn");
 
-let profileInfo = document.querySelector('.profile__info');
-let currentName = profileInfo.querySelector('.profile__name');
-let currentProf = profileInfo.querySelector('.profile__description');
-let editSection = document.querySelector('.edit-form');
+const profileInfo = document.querySelector(".profile__info");
+const currentName = profileInfo.querySelector(".profile__name");
+const currentProf = profileInfo.querySelector(".profile__description");
+const editSection = document.querySelector(".edit-form");
 
 function openEditSection() {
-    let nameToBeDisplayed = editSection.querySelector('.edit-form__input-name');
-    let professionToBeDisplayed = editSection.querySelector('.edit-form__input-prof');
-    nameToBeDisplayed.value = currentName.textContent;
-    professionToBeDisplayed.value = currentProf.textContent;
-    // console.log(nameToBeDisplayed.value);
-    // console.log(currentName.textContent);
-    // debugger;
-    popupElement.classList.add('edit-section__opened');
+  const nameToBeDisplayed = editSection.querySelector(".edit-form__input-name");
+  const professionToBeDisplayed = editSection.querySelector(
+    ".edit-form__input-prof"
+  );
+  nameToBeDisplayed.value = currentName.textContent;
+  professionToBeDisplayed.value = currentProf.textContent;
+  popupElement.classList.add("edit-section__opened");
 }
 
 function closeEditSection() {
-    popupElement.classList.remove('edit-section__opened');
+  popupElement.classList.remove("edit-section__opened");
 }
 
-function saveChanges() {
-    let newName = editSection.querySelector('.edit-form__input-name');
-    let newProfession = editSection.querySelector('.edit-form__input-prof');
-    // console.log(currentName.textContent);
-    // console.log(newName.value);
-    currentName.textContent = newName.value;
-    currentProf.textContent = newProfession.value;
-    // console.log(currentName.textContent);
-    // console.log(currentProf.textContent);
+function saveChanges(evt) {
+  evt.preventDefault();
+  const newName = editSection.querySelector(".edit-form__input-name");
+  const newProfession = editSection.querySelector(".edit-form__input-prof");
+  currentName.textContent = newName.value;
+  currentProf.textContent = newProfession.value;
+  closeEditSection();
 }
 
-editButton.addEventListener("click", openEditSection);
+editButton.addEventListener('click', openEditSection);
 
-closeButton.addEventListener("click", closeEditSection);
+closeButton.addEventListener('click', closeEditSection);
 
-// saveButton.addEventListener("click", saveChanges);
-
-editSection.onsubmit = function(evt) {
-    // console.log('запустилась функция onsubmit');
-    evt.preventDefault();
-    saveChanges();
-    closeEditSection();
-  };
+editSection.addEventListener('submit', saveChanges);

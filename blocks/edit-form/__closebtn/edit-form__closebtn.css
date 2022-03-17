@@ -1,20 +1,28 @@
 .edit-form__closebtn {
-    position: absolute;
-    top: -40px;
-    right: -40px;
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  background-color: black;
+  background-image: url('../../../images/close-icon.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 32px, 32px;
+  width: 32px;
+  height: 32px;
+  border: none;
 }
 
 .edit-form__closebtn:hover {
-    opacity: 0.6;
-    cursor: pointer;
+  opacity: 0.6;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 550px) {
-    .edit-form__closebtn {
-        top: -36px;
-        right: 0;
-        width: 20px;
-        height: 20px;
-    }
-    
+  .edit-form__closebtn {
+    top: -36px;
+    right: 0;
+    background-size: 20px, 20px;
+    width: 20px;
+    height: 20px;
+  }
 }

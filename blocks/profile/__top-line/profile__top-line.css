@@ -1,17 +1,17 @@
 .profile__top-line {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
 }
 
 @media screen and (max-width: 880px) {
-    .profile__top-line {
-        max-width: 282px;
-    }
+  .profile__top-line {
+    max-width: 282px;
+  }
 }
 
 @media screen and (max-width: 767px) {
-    .profile__top-line {
-        margin-left: 37px;
-    }
+  .profile__top-line {
+    margin-left: 37px;
+  }
 }
