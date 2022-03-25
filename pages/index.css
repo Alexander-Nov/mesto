@@ -18,6 +18,8 @@
 @import url(../blocks/element/__title-block/element__title-block.css);
 @import url(../blocks/element/__title/element__title.css);
 @import url(../blocks/element/__heart/element__heart.css);
+@import url(../blocks/element/__heart/heart_active/element__heart_active.css);
+@import url(../blocks/element/__delete/element__delete.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__text/footer__text.css);
 @import url(../blocks/edit-section/edit-section.css);
@@ -29,3 +31,18 @@
 @import url(../blocks/edit-form/__input-prof/edit-form__input-prof.css);
 @import url(../blocks/edit-form/__submitbtn/edit-form__submitbtn.css);
 @import url(../blocks/edit-form/__closebtn/edit-form__closebtn.css);
+@import url(../blocks/addCard-section/addCard-section.css);
+@import url(../blocks/addCard-section/__opened/addCard-section__opened.css);
+@import url(../blocks/addCard-form/addCard-form.css);
+@import url(../blocks/addCard-form/__closebtn/addCard-form__closebtn.css);
+@import url(../blocks/addCard-form/__title/addCard-form__title.css);
+@import url(../blocks/addCard-form/__fieldset/addCard-form__fieldset.css);
+@import url(../blocks/addCard-form/__input-name/addCard-form__input-name.css);
+@import url(../blocks/addCard-form/__input-link/addCard-form__input-link.css);
+@import url(../blocks/addCard-form/__submitbtn/addCard-form__submitbtn.css);
+@import url(../blocks/popupFoto/popupFoto.css);
+@import url(../blocks/popupFoto/__opened/popupFoto__opened.css);
+@import url(../blocks/popupFoto/__image/popupFoto__image.css);
+@import url(../blocks/popupFoto/__closebtn/popupFoto__closebtn.css);
+@import url(../blocks/popupFoto/__container/popupFoto__container.css);
+@import url(../blocks/popupFoto/__title/popupFoto__title.css);

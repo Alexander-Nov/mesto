@@ -28,50 +28,7 @@
         <button class="profile__add-button" type="button" aria-label="Добавить"></button>
       </section>
 
-      <section class="elements">
-        <div class="element">
-          <img class="element__image" src="./images/karachaevsk.jpg" alt="Фото Карачаевска">
-          <div class="element__title-block">
-            <h2 class="element__title">Карачаевск</h2>
-            <button class="element__heart" type="button" aria-label="Нравится"></button>
-          </div>
-        </div>
-        <div class="element">
-          <img class="element__image" src="./images/elbrus.jpg" alt="Фото Эльбруса">
-          <div class="element__title-block">
-            <h2 class="element__title">Гора Эльбрус</h2>
-            <button class="element__heart" type="button" aria-label="Нравится"></button>
-          </div>
-        </div>
-        <div class="element">
-          <img class="element__image" src="./images/dombay.jpg" alt="Фото Домбай">
-          <div class="element__title-block">
-            <h2 class="element__title">Домбай</h2>
-            <button class="element__heart" type="button" aria-label="Нравится"></button>
-          </div>
-        </div>
-        <div class="element">
-          <img class="element__image" src="./images/elbrus2.jpg" alt="Фото Эльбруса">
-          <div class="element__title-block">
-            <h2 class="element__title">Гора Эльбрус</h2>
-            <button class="element__heart" type="button" aria-label="Нравится"></button>
-          </div>
-        </div>
-        <div class="element">
-          <img class="element__image" src="./images/dombay2.jpg" alt="Фото Домбай">
-          <div class="element__title-block">
-            <h2 class="element__title">Домбай</h2>
-            <button class="element__heart" type="button" aria-label="Нравится"></button>
-          </div>
-        </div>
-        <div class="element">
-          <img class="element__image" src="./images/karachaevo2.jpg" alt="Фото Карачаево-Черкессии">
-          <div class="element__title-block">
-            <h2 class="element__title">Карачаево-Черкессия</h2>
-            <button class="element__heart" type="button" aria-label="Нравится"></button>
-          </div>
-        </div>
-      </section>
+      <section class="elements"></section>
     </main>
 
     <footer class="footer">
@@ -89,6 +46,41 @@
         </fieldset>
       </form>
     </section>
+
+    <section class="addCard-section">
+      <form class="addCard-form">
+        <button class="addCard-form__closebtn" type="button" aria-label="Закрыть"></button>
+        <h2 class="addCard-form__title">Новое место</h2>
+        <fieldset class="addCard-form__fieldset">
+          <input type="text" class="addCard-form__input-name" name="addCard-input-name" value="" placeholder="Название">
+          <input type="text" class="addCard-form__input-link" name="addCard-input-link" value="" placeholder="Ссылка на картинку">
+          <button type="submit" class="addCard-form__submitbtn">Создать</button>
+        </fieldset>
+      </form>
+    </section>
+
+    <section class="popupFoto">
+      <div class="popupFoto__container">
+        <button class="popupFoto__closebtn" type="button" aria-label="Закрыть"></button>
+        <img class="popupFoto__image" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg" alt="">
+        <h2 class="popupFoto__title">Название фото</h2>
+      </div>
+    </section>
+
+
+
+  <template id="cardTemplate">
+    <div class="element">
+      <img class="element__image" src="" alt="">
+      <div class="element__title-block">
+        <h2 class="element__title"></h2>
+        <button class="element__heart" type="button" aria-label="Нравится"></button>
+      </div>
+      <button class="element__delete" type="button" aria-label="Удалить"></button>
+    </div>
+  </template>
+
+
 
   </div>
   <script src="./scripts/index.js"></script>

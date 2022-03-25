@@ -1,0 +1,25 @@
+.addCard-form__input-link {
+  width: 358px;
+  height: 27px;
+  border: 0;
+  border-bottom: 1px solid #000000;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  margin: 0 0 45px 0;
+  padding: 0;
+  padding-bottom: 3px;
+}
+
+.addCard-form__input-link:active,
+:hover,
+:focus {
+  outline: 0;
+  outline-offset: 0;
+}
+
+@media screen and (max-width: 550px) {
+  .addCard-form__input-link {
+    width: 238px;
+  }
+}
