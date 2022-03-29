@@ -1,54 +1,3 @@
-const popupElement = document.querySelector(".edit-section");
-const editButton = document.querySelector(".profile__edit-button");
-const closeButton = popupElement.querySelector(".edit-form__closebtn");
-const saveButton = popupElement.querySelector(".edit-form__submitbtn");
-
-const profileInfo = document.querySelector(".profile__info");
-const currentName = profileInfo.querySelector(".profile__name");
-const currentProf = profileInfo.querySelector(".profile__description");
-const editSection = document.querySelector(".edit-form");
-const popupFotoFrame = document.querySelector(".popupFoto");
-
-function openEditSection() {
-  const nameToBeDisplayed = editSection.querySelector(".edit-form__input-name");
-  const professionToBeDisplayed = editSection.querySelector(
-    ".edit-form__input-prof"
-  );
-  nameToBeDisplayed.value = currentName.textContent;
-  professionToBeDisplayed.value = currentProf.textContent;
-  popupElement.classList.add("edit-section__opened");
-}
-
-function closeEditSection() {
-  popupElement.classList.remove("edit-section__opened");
-}
-
-function saveChanges(evt) {
-  evt.preventDefault();
-  const newName = editSection.querySelector(".edit-form__input-name");
-  const newProfession = editSection.querySelector(".edit-form__input-prof");
-  currentName.textContent = newName.value;
-  currentProf.textContent = newProfession.value;
-  closeEditSection();
-}
-
-editButton.addEventListener('click', openEditSection);
-
-closeButton.addEventListener('click', closeEditSection);
-
-editSection.addEventListener('submit', saveChanges);
-
-
-// Форма добавления новой карточки
-const addCardElement = document.querySelector(".addCard-section");
-const addCardButton = document.querySelector(".profile__add-button");
-const addCardCloseButton = addCardElement.querySelector(".addCard-form__closebtn");
-const addCardSaveButton = addCardElement.querySelector(".addCard-form__submitbtn");
-const cardTemplate = document.querySelector('#cardTemplate').content;
-const elements = document.querySelector('.elements');
-const addCardSection = document.querySelector(".addCard-form");
-
-
 const initialCards = [
   {
     name: 'Иваново',
@@ -76,64 +25,90 @@ const initialCards = [
   }
 ];
 
+// Переменные на странице
+const profilePopup = document.querySelector(".popup_type_profile");  // Попап редактирования профиля
+const profileEditForm = document.querySelector(".popup__form_type_profile");  // форма редактирования профиля
+const cardPopup = document.querySelector(".popup_type_card");   // Попап добавления новой карточки
+const newCardForm = document.querySelector(".popup__form_type_card"); // форма добавления новой карты, для отслеживания Submit
+const imagePopup = document.querySelector(".popup_type_image");   // Попап картинки
+const profileInfo = document.querySelector(".profile__info"); // раздел profile
+const currentName = profileInfo.querySelector(".profile__name"); //строка в profile с именем
+const currentProf = profileInfo.querySelector(".profile__description"); // строка в profile с профессией
+const cardTemplate = document.querySelector('#cardTemplate').content; //разметка внутри шаблона
+const elements = document.querySelector('.elements');        //секция для вывода карточек
 
-function addCard (card) {
-  const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
-  foto = cardElement.querySelector('.element__image');
+// Кнопки на самой странице
+const buttonEditProfile = document.querySelector(".profile__edit-button");  // кнопка правки профиля
+const buttonOpenCardPopup = document.querySelector(".profile__add-button");  // кнопка добавления новой карточки
+
+//==profilePopup
+const buttonCloseProfile = profilePopup.querySelector(".popup__close-button");
+const buttonSaveProfile = profilePopup.querySelector(".popup__submit-button");
+const nameToBeDisplayed = profilePopup.querySelector(".popup__input-name");
+const professionToBeDisplayed = profilePopup.querySelector(".popup__input-prof");
+const newName = profilePopup.querySelector(".popup__input-name");
+const newProfession = profilePopup.querySelector(".popup__input-prof");
+
+//==cardPopup
+const buttonCloseCardPopup = cardPopup.querySelector(".popup__close-button");
+const newCardName = cardPopup.querySelector(".popup__input-name");
+const newCardLink = cardPopup.querySelector(".popup__input-prof");
+
+//==imagePopup
+const buttonCloseImagePopup = imagePopup.querySelector(".popup__close-button");
+const titleImagePopup = imagePopup.querySelector(".popup__image-title");
+const fotoImagePopup = imagePopup.querySelector(".popup__image");
+
+function openPopup(elementToPopup) {
+  elementToPopup.classList.add("popup_opened");
+}
+
+function closePopup(elementToClose) {
+  elementToClose.classList.remove("popup_opened");
+}
+
+function prepareProfilePopup() {
+  nameToBeDisplayed.value = currentName.textContent;
+  professionToBeDisplayed.value = currentProf.textContent;
+}
+
+function saveProfileChanges(evt) {
+  evt.preventDefault();
+  currentName.textContent = newName.value;
+  currentProf.textContent = newProfession.value;
+  closePopup(profilePopup);
+}
+
+function createNewCard (card) {
+  const cardElement = cardTemplate.querySelector('.element').cloneNode(true); //клонируем разметку из шаблона
+  const foto = cardElement.querySelector('.element__image');
   foto.src = card.link;
   foto.alt = card.name;
   cardElement.querySelector('.element__title').textContent = card.name;
-  elements.prepend(cardElement);
-
-  //выбираем кнопку Like и вешаем на нее слушатель
-  const cardLike = cardElement.querySelector('.element__heart');
+  const cardLike = cardElement.querySelector('.element__heart'); //выбираем кнопку Like и вешаем на нее слушатель
   cardLike.addEventListener('click', setLike);
-
-  //выбираем кнопку Закрыть и вешаем на нее слушатель
-  const deleteCardButton = document.querySelector(".element__delete");
+  const deleteCardButton = cardElement.querySelector(".element__delete"); //выбираем кнопку delete и вешаем на нее слушатель
   deleteCardButton.addEventListener('click', deleteCard);
-
-  //вешаем слушатель на всю поверхность фото для открытия во весь экран
-  foto.addEventListener('click', openPopupFoto)
+  foto.addEventListener('click', prepareImagePopup); //вешаем слушатель на фото для открытия во весь экран
+  return cardElement;
 }
 
-// Добавляем первые 6 карточек
-for (let c = 0; c < 6; c = c + 1) {
-  addCard(initialCards[c]);
-}
-
-function createNewCard (evt) {
+function addNewCard (evt) {
   evt.preventDefault();
-
-  // считываем показания из инпутов и формируем объект newCard
-  const newCardName = addCardSection.querySelector(".addCard-form__input-name");
-  const newCardLink = addCardSection.querySelector(".addCard-form__input-link");
-  const newCard = [];
+  const newCard = {};
   newCard.name = newCardName.value;
   newCard.link = newCardLink.value;
-
-  // вызываем функцию addCard(newCard);
-  addCard(newCard);
-
-  //очищаем поля ввода
-  newCardName.value = '';
+  const cardElement = createNewCard(newCard); // вызываем функцию создания узла;
+  renderCard(cardElement); // вызываем функцию добавления узла на страницу
+  newCardName.value = ''; // очищаем поля ввода
   newCardLink.value = '';
-
-  // закрываем секцию
-  closeAddCardSection()
+  closePopup(cardPopup); // закрываем cardPopup
 }
 
-function openAddCardSection () {
-  addCardElement.classList.add("addCard-section__opened");
+// функция отрисовки новой карточки на странице
+function renderCard (elementToRender) {
+  elements.prepend(elementToRender);
 }
-
-function closeAddCardSection() {
-  addCardElement.classList.remove("addCard-section__opened");
-}
-
-addCardButton.addEventListener('click', openAddCardSection);
-addCardCloseButton.addEventListener('click', closeAddCardSection);
-addCardSection.addEventListener('submit', createNewCard);
 
 // функция like на карточках
 function setLike (evt) {
@@ -147,20 +122,45 @@ function deleteCard (evt) {
   cardToBeDeleted.remove();
 }
 
-//Попап фотографии
-const fotoCloseButton = popupFotoFrame.querySelector(".popupFoto__closebtn");
-
-function openPopupFoto(evt) {
+//Подготовка данных для imagePopup
+function prepareImagePopup(evt) {
   const fotoLink = evt.target.src;
   const fotoTitle = evt.target.nextElementSibling.textContent;
-  popupFotoFrame.querySelector(".popupFoto__title").textContent = fotoTitle;
-  const popupFotoFrameImage = popupFotoFrame.querySelector(".popupFoto__image");
-  popupFotoFrameImage.src = fotoLink;
-  popupFotoFrame.classList.add("popupFoto__opened");
+  titleImagePopup.textContent = fotoTitle;
+  fotoImagePopup.src = fotoLink;
+  openPopup(imagePopup);
 }
 
-function closePopupFoto() {
-  popupFotoFrame.classList.remove("popupFoto__opened");
-}
+// Добавляем первые 6 карточек
+initialCards.forEach((item) => {
+  const cardElement = createNewCard(item); // вызываем функцию создания узла;
+  renderCard(cardElement);
+});
 
-fotoCloseButton.addEventListener('click', closePopupFoto);
+// profilePopup - слушатели
+buttonEditProfile.addEventListener('click', () => {
+  prepareProfilePopup();
+  openPopup(profilePopup);
+});
+
+buttonCloseProfile.addEventListener('click', () => {
+  closePopup(profilePopup);
+});
+
+profileEditForm.addEventListener('submit', saveProfileChanges);
+
+// imagePopup - слушатели
+buttonCloseImagePopup.addEventListener('click', () => {
+  closePopup(imagePopup);
+});
+
+// cardPopup - слушатели
+buttonOpenCardPopup.addEventListener('click', () => {
+  openPopup(cardPopup);
+});
+
+buttonCloseCardPopup.addEventListener('click', () => {
+  closePopup(cardPopup);
+});
+
+newCardForm.addEventListener('submit', addNewCard);

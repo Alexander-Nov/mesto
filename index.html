@@ -35,35 +35,35 @@
       <p class="footer__text">© 2022 Mesto Russia</p>
     </footer>
 
-    <section class="edit-section">
-      <form class="edit-form">
-        <button class="edit-form__closebtn" type="button" aria-label="Закрыть"></button>
-        <h2 class="edit-form__title">Редактировать профиль</h2>
-        <fieldset class="edit-form__fieldset">
-          <input type="text" class="edit-form__input-name" name="input-name" value="">
-          <input type="text" class="edit-form__input-prof" name="input-prof" value="">
-          <button type="submit" class="edit-form__submitbtn">Сохранить</button>
+    <section class="popup popup_type_profile">
+      <form class="popup__form popup__form_type_profile">
+        <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <fieldset class="popup__fieldset">
+          <input type="text" class="popup__input-name" name="input-name" value="">
+          <input type="text" class="popup__input-prof" name="input-prof" value="">
+          <button type="submit" class="popup__submit-button">Сохранить</button>
         </fieldset>
       </form>
     </section>
 
-    <section class="addCard-section">
-      <form class="addCard-form">
-        <button class="addCard-form__closebtn" type="button" aria-label="Закрыть"></button>
-        <h2 class="addCard-form__title">Новое место</h2>
-        <fieldset class="addCard-form__fieldset">
-          <input type="text" class="addCard-form__input-name" name="addCard-input-name" value="" placeholder="Название">
-          <input type="text" class="addCard-form__input-link" name="addCard-input-link" value="" placeholder="Ссылка на картинку">
-          <button type="submit" class="addCard-form__submitbtn">Создать</button>
+    <section class="popup popup_type_card">
+      <form class="popup__form popup__form_type_card">
+        <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
+        <h2 class="popup__title">Новое место</h2>
+        <fieldset class="popup__fieldset">
+          <input type="text" class="popup__input-name" name="addCard-input-name" value="" placeholder="Название">
+          <input type="url" class="popup__input-prof" name="addCard-input-link" value="" placeholder="Ссылка на картинку">
+          <button type="submit" class="popup__submit-button">Создать</button>
         </fieldset>
       </form>
     </section>
 
-    <section class="popupFoto">
-      <div class="popupFoto__container">
-        <button class="popupFoto__closebtn" type="button" aria-label="Закрыть"></button>
-        <img class="popupFoto__image" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg" alt="">
-        <h2 class="popupFoto__title">Название фото</h2>
+    <section class="popup popup_type_image popup_dark-background popup_centered">
+      <div class="popup__container">
+        <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
+        <img class="popup__image" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg" alt="">
+        <h2 class="popup__image-title">Название фото</h2>
       </div>
     </section>
 
@@ -71,7 +71,7 @@
 
   <template id="cardTemplate">
     <div class="element">
-      <img class="element__image" src="./images/falls-creek.jpg" alt="Водопад">
+      <img class="element__image" src="./images/falls-creek.jpg" alt=" ">
       <div class="element__title-block">
         <h2 class="element__title"></h2>
         <button class="element__heart" type="button" aria-label="Нравится"></button>
