@@ -35,7 +35,7 @@ const profileInfo = document.querySelector(".profile__info"); // раздел pr
 const currentName = profileInfo.querySelector(".profile__name"); //строка в profile с именем
 const currentProf = profileInfo.querySelector(".profile__description"); // строка в profile с профессией
 const cardTemplate = document.querySelector('#cardTemplate').content; //разметка внутри шаблона
-const elements = document.querySelector('.elements');        //секция для вывода карточек
+const cardsContainer = document.querySelector('.elements');        //секция для вывода карточек
 
 // Кнопки на самой странице
 const buttonEditProfile = document.querySelector(".profile__edit-button");  // кнопка правки профиля
@@ -107,7 +107,7 @@ function addNewCard (evt) {
 
 // функция отрисовки новой карточки на странице
 function renderCard (elementToRender) {
-  elements.prepend(elementToRender);
+  cardsContainer.prepend(elementToRender);
 }
 
 // функция like на карточках
@@ -125,7 +125,7 @@ function deleteCard (evt) {
 //Подготовка данных для imagePopup
 function prepareImagePopup(evt) {
   const fotoLink = evt.target.src;
-  const fotoTitle = evt.target.nextElementSibling.textContent;
+  const fotoTitle = evt.target.alt;
   titleImagePopup.textContent = fotoTitle;
   fotoImagePopup.src = fotoLink;
   openPopup(imagePopup);
