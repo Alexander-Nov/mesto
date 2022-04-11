@@ -43,7 +43,7 @@ const buttonOpenCardPopup = document.querySelector(".profile__add-button");  // 
 
 //==profilePopup
 const buttonCloseProfile = profilePopup.querySelector(".popup__close-button");
-const buttonSaveProfile = profilePopup.querySelector(".popup__submit-button");
+//const buttonSaveProfile = profilePopup.querySelector(".popup__submit-button");
 const nameToBeDisplayed = profilePopup.querySelector(".popup__input-name");
 const professionToBeDisplayed = profilePopup.querySelector(".popup__input-prof");
 const newName = profilePopup.querySelector(".popup__input-name");
@@ -95,9 +95,7 @@ function createNewCard (card) {
 
 function addNewCard (evt) {
   evt.preventDefault();
-  const newCard = {};
-  newCard.name = newCardName.value;
-  newCard.link = newCardLink.value;
+  const newCard = {name: newCardName.value, link: newCardLink.value};
   const cardElement = createNewCard(newCard); // вызываем функцию создания узла;
   renderCard(cardElement); // вызываем функцию добавления узла на страницу
   newCardName.value = ''; // очищаем поля ввода
