@@ -36,6 +36,7 @@ const currentName = profileInfo.querySelector(".profile__name"); //строка 
 const currentProf = profileInfo.querySelector(".profile__description"); // строка в profile с профессией
 const cardTemplate = document.querySelector('#cardTemplate').content; //разметка внутри шаблона
 const cardsContainer = document.querySelector('.elements');        //секция для вывода карточек
+const popupList = Array.from(document.querySelectorAll('.popup')); // массив со списком всех попапов на странице
 
 // Кнопки на самой странице
 const buttonEditProfile = document.querySelector(".profile__edit-button");  // кнопка правки профиля
@@ -43,11 +44,12 @@ const buttonOpenCardPopup = document.querySelector(".profile__add-button");  // 
 
 //==profilePopup
 const buttonCloseProfile = profilePopup.querySelector(".popup__close-button");
-//const buttonSaveProfile = profilePopup.querySelector(".popup__submit-button");
 const nameToBeDisplayed = profilePopup.querySelector(".popup__input-name");
 const professionToBeDisplayed = profilePopup.querySelector(".popup__input-prof");
-const newName = profilePopup.querySelector(".popup__input-name");
-const newProfession = profilePopup.querySelector(".popup__input-prof");
+const newNameInput = profilePopup.querySelector(".popup__input-name");
+const newProfessionInput = profilePopup.querySelector(".popup__input-prof");
+const inputListProfile = Array.from(profileEditForm.querySelectorAll('.popup__input'));
+const buttonElementProfile = profileEditForm.querySelector('.popup__submit-button');
 
 //==cardPopup
 const buttonCloseCardPopup = cardPopup.querySelector(".popup__close-button");
@@ -59,12 +61,21 @@ const buttonCloseImagePopup = imagePopup.querySelector(".popup__close-button");
 const titleImagePopup = imagePopup.querySelector(".popup__image-title");
 const fotoImagePopup = imagePopup.querySelector(".popup__image");
 
+function onDocumentKeyDown (evt) {
+  if (evt.key === 'Escape') {
+    const currentPopup = document.querySelector(".popup_opened");
+    closePopup(currentPopup);
+    };
+}
+
 function openPopup(elementToPopup) {
   elementToPopup.classList.add("popup_opened");
+  document.addEventListener('keydown', onDocumentKeyDown);
 }
 
 function closePopup(elementToClose) {
   elementToClose.classList.remove("popup_opened");
+  document.removeEventListener('keydown', onDocumentKeyDown);
 }
 
 function prepareProfilePopup() {
@@ -74,8 +85,8 @@ function prepareProfilePopup() {
 
 function saveProfileChanges(evt) {
   evt.preventDefault();
-  currentName.textContent = newName.value;
-  currentProf.textContent = newProfession.value;
+  currentName.textContent = newNameInput.value;
+  currentProf.textContent = newProfessionInput.value;
   closePopup(profilePopup);
 }
 
@@ -138,10 +149,15 @@ initialCards.forEach((item) => {
 // profilePopup - слушатели
 buttonEditProfile.addEventListener('click', () => {
   prepareProfilePopup();
+  toggleButtonState(inputListProfile, buttonElementProfile);
   openPopup(profilePopup);
 });
 
 buttonCloseProfile.addEventListener('click', () => {
+  const errorNameElement = profileEditForm.querySelector('#input-name-error');
+  errorNameElement.textContent = '';
+  const errorProfElement = profileEditForm.querySelector('#input-prof-error');
+  errorProfElement.textContent = '';
   closePopup(profilePopup);
 });
 
@@ -158,7 +174,21 @@ buttonOpenCardPopup.addEventListener('click', () => {
 });
 
 buttonCloseCardPopup.addEventListener('click', () => {
+  const errorNameElement = newCardForm.querySelector('#card-name-error');
+  errorNameElement.textContent = '';
+  const errorProfElement = newCardForm.querySelector('#card-link-error');
+  errorProfElement.textContent = '';
+  newCardName.value = ''; // очищаем поля ввода
+  newCardLink.value = '';
   closePopup(cardPopup);
 });
 
 newCardForm.addEventListener('submit', addNewCard);
+
+popupList.forEach((popup) => {
+  popup.addEventListener('mousedown', (evt) => {
+    if (evt.target.classList.contains('popup_opened')) {
+      closePopup(popup);
+    };
+  });
+});
