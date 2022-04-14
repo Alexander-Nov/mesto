@@ -1,35 +1,9 @@
-const initialCards = [
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Мексика, Los Cabos',
-    link: './images/los-cabos-mexico.jpg'
-  },
-  {
-    name: 'Италия',
-    link: './images/italy.jpg'
-  },
-  {
-    name: 'Водопад',
-    link: './images/falls-creek.jpg'
-  }
-];
-
 // Переменные на странице
 const profilePopup = document.querySelector(".popup_type_profile");  // Попап редактирования профиля
 const profileEditForm = document.querySelector(".popup__form_type_profile");  // форма редактирования профиля
 const cardPopup = document.querySelector(".popup_type_card");   // Попап добавления новой карточки
 const newCardForm = document.querySelector(".popup__form_type_card"); // форма добавления новой карты, для отслеживания Submit
+const inputListCardForm = Array.from(newCardForm.querySelectorAll('.popup__input'));
 const imagePopup = document.querySelector(".popup_type_image");   // Попап картинки
 const profileInfo = document.querySelector(".profile__info"); // раздел profile
 const currentName = profileInfo.querySelector(".profile__name"); //строка в profile с именем
@@ -55,15 +29,32 @@ const buttonElementProfile = profileEditForm.querySelector('.popup__submit-butto
 const buttonCloseCardPopup = cardPopup.querySelector(".popup__close-button");
 const newCardName = cardPopup.querySelector(".popup__input-name");
 const newCardLink = cardPopup.querySelector(".popup__input-prof");
+const buttonAddCard = cardPopup.querySelector('.popup__submit-button'); // кнопка - создать новую карточку
 
 //==imagePopup
 const buttonCloseImagePopup = imagePopup.querySelector(".popup__close-button");
 const titleImagePopup = imagePopup.querySelector(".popup__image-title");
 const fotoImagePopup = imagePopup.querySelector(".popup__image");
 
+// конфигурация переменных для валидации
+const validationConfig = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+};
+
 function onDocumentKeyDown (evt) {
   if (evt.key === 'Escape') {
     const currentPopup = document.querySelector(".popup_opened");
+    const currentForm = currentPopup.querySelector('.popup__form');
+      hideAllInputErrorsOnClose(currentForm); // вызываем функцию перебора и обнуления ошибок всех инпутов текущей формы
+      if (currentForm === newCardForm) {
+        newCardName.value = ''; // очищаем поля ввода
+        newCardLink.value = '';
+      };
     closePopup(currentPopup);
     };
 }
@@ -111,6 +102,7 @@ function addNewCard (evt) {
   renderCard(cardElement); // вызываем функцию добавления узла на страницу
   newCardName.value = ''; // очищаем поля ввода
   newCardLink.value = '';
+  toggleButtonState(inputListCardForm, buttonAddCard); // запускаем проверку полей и блокировку кнопки
   closePopup(cardPopup); // закрываем cardPopup
 }
 
@@ -121,8 +113,7 @@ function renderCard (elementToRender) {
 
 // функция like на карточках
 function setLike (evt) {
-  const eventTarget = evt.target;
-  eventTarget.classList.toggle("element__heart_active");
+  evt.target.classList.toggle("element__heart_active");
 }
 
 //Удаление карточки
@@ -154,10 +145,7 @@ buttonEditProfile.addEventListener('click', () => {
 });
 
 buttonCloseProfile.addEventListener('click', () => {
-  const errorNameElement = profileEditForm.querySelector('#input-name-error');
-  errorNameElement.textContent = '';
-  const errorProfElement = profileEditForm.querySelector('#input-prof-error');
-  errorProfElement.textContent = '';
+  hideAllInputErrorsOnClose(profileEditForm); // вызываем функцию перебора и обнуления ошибок всех инпутов текущей формы
   closePopup(profilePopup);
 });
 
@@ -174,10 +162,7 @@ buttonOpenCardPopup.addEventListener('click', () => {
 });
 
 buttonCloseCardPopup.addEventListener('click', () => {
-  const errorNameElement = newCardForm.querySelector('#card-name-error');
-  errorNameElement.textContent = '';
-  const errorProfElement = newCardForm.querySelector('#card-link-error');
-  errorProfElement.textContent = '';
+  hideAllInputErrorsOnClose(newCardForm); // вызываем функцию перебора и обнуления ошибок всех инпутов текущей формы
   newCardName.value = ''; // очищаем поля ввода
   newCardLink.value = '';
   closePopup(cardPopup);
@@ -188,6 +173,12 @@ newCardForm.addEventListener('submit', addNewCard);
 popupList.forEach((popup) => {
   popup.addEventListener('mousedown', (evt) => {
     if (evt.target.classList.contains('popup_opened')) {
+      const currentForm = popup.querySelector('.popup__form');
+      hideAllInputErrorsOnClose(currentForm); // вызываем функцию перебора и обнуления ошибок всех инпутов текущей формы
+      if (currentForm === newCardForm) {
+        newCardName.value = ''; // очищаем поля ввода
+        newCardLink.value = '';
+      };
       closePopup(popup);
     };
   });

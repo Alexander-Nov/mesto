@@ -1,11 +1,21 @@
 const showInputError = (formElement, inputElement, errorMessage) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   errorElement.textContent = errorMessage;
+  errorElement.classList.add('popup__span-error_visible');
+  inputElement.classList.add('popup__input_active-error');
 };
 
 const hideInputError = (formElement, inputElement) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   errorElement.textContent = '';
+  errorElement.classList.remove('popup__span-error_visible');
+  inputElement.classList.remove('popup__input_active-error');
+};
+
+const hideAllInputErrorsOnClose = (formElement) => {
+  Array.from(formElement.querySelectorAll('.popup__input')).forEach(input => {
+    hideInputError(formElement, input);
+  });
 };
 
 const checkInputValidity = (formElement, inputElement) => {
@@ -29,7 +39,7 @@ const setEventListeners = (formElement) => {
 };
 
 const enableValidation = () => {
-  let formList = Array.from(document.querySelectorAll('.popup__form'));
+  const formList = Array.from(document.querySelectorAll('.popup__form'));
   formList.forEach((formElement) => {
     formElement.addEventListener('sumbit', function (evt) {
       evt.preventDefault();
@@ -44,13 +54,21 @@ const hasInvalidInput = (inputList) => {
   });
 };
 
+const enableSubmitButton = (buttonElement) => {
+  buttonElement.disabled = true;
+  buttonElement.classList.add('popup__submit-button_inactive');
+};
+
+const disableSubmitButton = (buttonElement) => {
+  buttonElement.disabled = false;
+  buttonElement.classList.remove('popup__submit-button_inactive');
+};
+
 const toggleButtonState = (inputList, buttonElement) => {
   if (hasInvalidInput(inputList)) {
-    buttonElement.disabled = true;
-    buttonElement.classList.add('popup__submit-button_inactive');
+    enableSubmitButton(buttonElement);
   } else {
-    buttonElement.disabled = false;
-    buttonElement.classList.remove('popup__submit-button_inactive');
+    disableSubmitButton(buttonElement);
   }
 };
 
