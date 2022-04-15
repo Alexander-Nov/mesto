@@ -4,3 +4,7 @@
   max-width: 75vw;
   max-height: 75vh;
 }
+
+.popup__image:hover {
+  cursor: auto;
+}
