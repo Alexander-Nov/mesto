@@ -15,6 +15,10 @@
   box-sizing: border-box;
 }
 
+.popup__form:hover {
+  cursor: auto;
+}
+
 @media screen and (max-width: 550px) {
   .popup__form {
     width: 282px;
