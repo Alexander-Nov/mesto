@@ -36,17 +36,21 @@ const buttonCloseImagePopup = imagePopup.querySelector(".popup__close-button");
 const titleImagePopup = imagePopup.querySelector(".popup__image-title");
 const fotoImagePopup = imagePopup.querySelector(".popup__image");
 
-function onDocumentKeyDown (evt) {
-  if (evt.key === 'Escape') {
+function onDocumentKeyDown(evt) {
+  if (evt.key === "Escape") {
     const currentPopup = document.querySelector(".popup_opened");
-    const currentForm = currentPopup.querySelector('.popup__form');
-      hideAllInputErrorsOnClose(currentForm, "popup__input_active-error", "popup__span-error_visible"); // вызываем функцию перебора и обнуления ошибок всех инпутов текущей формы
+    if (!currentPopup.querySelector(".popup__form")) {
+      closePopup(currentPopup);
+    } else {
+      const currentForm = currentPopup.querySelector(".popup__form");
+      hideAllInputErrorsOnClose(currentForm, validationConfig); // вызываем функцию перебора и обнуления ошибок всех инпутов текущей формы
       if (currentForm === newCardForm) {
-        newCardName.value = ''; // очищаем поля ввода
-        newCardLink.value = '';
+        newCardName.value = ""; // очищаем поля ввода
+        newCardLink.value = "";
       };
-    closePopup(currentPopup);
+      closePopup(currentPopup);
     };
+  };
 }
 
 function openPopup(elementToPopup) {
@@ -92,7 +96,7 @@ function addNewCard (evt) {
   renderCard(cardElement); // вызываем функцию добавления узла на страницу
   newCardName.value = ''; // очищаем поля ввода
   newCardLink.value = '';
-  toggleButtonState(inputListCardForm, buttonAddCard, {inactiveButtonClass: "popup__submit-button_inactive"}); // запускаем проверку полей и блокировку кнопки
+  toggleButtonState(inputListCardForm, buttonAddCard, validationConfig); // запускаем проверку полей и блокировку кнопки
   closePopup(cardPopup); // закрываем cardPopup
 }
 
@@ -130,12 +134,12 @@ initialCards.forEach((item) => {
 // profilePopup - слушатели
 buttonEditProfile.addEventListener('click', () => {
   prepareProfilePopup();
-  toggleButtonState(inputListProfile, buttonElementProfile, {inactiveButtonClass: "popup__submit-button_inactive"});
+  toggleButtonState(inputListProfile, buttonElementProfile, validationConfig);
   openPopup(profilePopup);
 });
 
 buttonCloseProfile.addEventListener('click', () => {
-  hideAllInputErrorsOnClose(profileEditForm, "popup__input_active-error", "popup__span-error_visible"); // вызываем функцию перебора и обнуления ошибок всех инпутов текущей формы
+  hideAllInputErrorsOnClose(profileEditForm, validationConfig); // вызываем функцию перебора и обнуления ошибок всех инпутов текущей формы
   closePopup(profilePopup);
 });
 
@@ -152,7 +156,7 @@ buttonOpenCardPopup.addEventListener('click', () => {
 });
 
 buttonCloseCardPopup.addEventListener('click', () => {
-  hideAllInputErrorsOnClose(newCardForm, "popup__input_active-error", "popup__span-error_visible"); // вызываем функцию перебора и обнуления ошибок всех инпутов текущей формы
+  hideAllInputErrorsOnClose(newCardForm, validationConfig); // вызываем функцию перебора и обнуления ошибок всех инпутов текущей формы
   newCardName.value = ''; // очищаем поля ввода
   newCardLink.value = '';
   closePopup(cardPopup);
@@ -161,15 +165,19 @@ buttonCloseCardPopup.addEventListener('click', () => {
 newCardForm.addEventListener('submit', addNewCard);
 
 popupList.forEach((popup) => {
-  popup.addEventListener('mousedown', (evt) => {
-    if (evt.target.classList.contains('popup_opened')) {
-      const currentForm = popup.querySelector('.popup__form');
-      hideAllInputErrorsOnClose(currentForm, "popup__input_active-error", "popup__span-error_visible"); // вызываем функцию перебора и обнуления ошибок всех инпутов текущей формы
-      if (currentForm === newCardForm) {
-        newCardName.value = ''; // очищаем поля ввода
-        newCardLink.value = '';
-      };
-      closePopup(popup);
-    };
+  popup.addEventListener("mousedown", (evt) => {
+    if (evt.target.classList.contains("popup_opened")) {
+      if (evt.target.classList.contains("popup_type_image")) {
+        closePopup(popup);
+      } else {
+        const currentForm = popup.querySelector(".popup__form");
+        hideAllInputErrorsOnClose(currentForm, validationConfig); // вызываем функцию перебора и обнуления ошибок всех инпутов текущей формы
+        if (currentForm === newCardForm) {
+          newCardName.value = ""; // очищаем поля ввода
+          newCardLink.value = "";
+        }
+        closePopup(popup);
+      }
+    }
   });
 });

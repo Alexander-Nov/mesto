@@ -8,33 +8,31 @@ const validationConfig = {
   errorClass: "popup__span-error_visible",
 };
 
-// const {formSelector, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass} = validationConfig;
-
-const showInputError = (formElement, inputElement, errorMessage, inputErrorClass, errorClass) => {
+const showInputError = (formElement, inputElement, errorMessage, {inputErrorClass, errorClass}) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   errorElement.textContent = errorMessage;
   errorElement.classList.add(errorClass);
   inputElement.classList.add(inputErrorClass);
 };
 
-const hideInputError = (formElement, inputElement, inputErrorClass, errorClass) => {
+const hideInputError = (formElement, inputElement, {inputErrorClass, errorClass}) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   errorElement.textContent = '';
   errorElement.classList.remove(errorClass);
   inputElement.classList.remove(inputErrorClass);
 };
 
-const hideAllInputErrorsOnClose = (formElement, inputErrorClass, errorClass) => {
+const hideAllInputErrorsOnClose = (formElement, valConfig) => {
   Array.from(formElement.querySelectorAll('.popup__input')).forEach(input => {
-    hideInputError(formElement, input, inputErrorClass, errorClass);
+    hideInputError(formElement, input, valConfig);
   });
 };
 
-const checkInputValidity = (formElement, inputElement, {inputErrorClass, errorClass}) => {
+const checkInputValidity = (formElement, inputElement, rest) => {
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage, inputErrorClass, errorClass);
+    showInputError(formElement, inputElement, inputElement.validationMessage, rest);
   } else {
-    hideInputError(formElement, inputElement, inputErrorClass, errorClass);
+    hideInputError(formElement, inputElement, rest);
   }
 };
 
