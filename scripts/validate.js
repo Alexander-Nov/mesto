@@ -36,12 +36,12 @@ const checkInputValidity = (formElement, inputElement, rest) => {
   }
 };
 
-const enableSubmitButton = (buttonElement, {inactiveButtonClass}) => {
+const disableSubmitButton = (buttonElement, {inactiveButtonClass}) => {
   buttonElement.disabled = true;
   buttonElement.classList.add(inactiveButtonClass);
 };
 
-const disableSubmitButton = (buttonElement, {inactiveButtonClass}) => {
+const enableSubmitButton = (buttonElement, {inactiveButtonClass}) => {
   buttonElement.disabled = false;
   buttonElement.classList.remove(inactiveButtonClass);
 };
@@ -54,9 +54,9 @@ const hasInvalidInput = (inputList) => {
 
 const toggleButtonState = (inputList, buttonElement, rest) => {
   if (hasInvalidInput(inputList)) {
-    enableSubmitButton(buttonElement, rest);
-  } else {
     disableSubmitButton(buttonElement, rest);
+  } else {
+    enableSubmitButton(buttonElement, rest);
   }
 };
 

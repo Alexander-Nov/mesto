@@ -96,7 +96,7 @@ function addNewCard (evt) {
   renderCard(cardElement); // вызываем функцию добавления узла на страницу
   newCardName.value = ''; // очищаем поля ввода
   newCardLink.value = '';
-  toggleButtonState(inputListCardForm, buttonAddCard, validationConfig); // запускаем проверку полей и блокировку кнопки
+  disableSubmitButton(buttonAddCard, validationConfig); // блокируем кнопку перед следующим вызовом
   closePopup(cardPopup); // закрываем cardPopup
 }
 
@@ -134,7 +134,7 @@ initialCards.forEach((item) => {
 // profilePopup - слушатели
 buttonEditProfile.addEventListener('click', () => {
   prepareProfilePopup();
-  toggleButtonState(inputListProfile, buttonElementProfile, validationConfig);
+  enableSubmitButton(buttonElementProfile, validationConfig);
   openPopup(profilePopup);
 });
 
