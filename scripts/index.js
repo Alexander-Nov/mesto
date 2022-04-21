@@ -89,6 +89,8 @@ function createNewCard (card) {
   return cardElement;
 }
 
+//TODO изменить процесс стирания полей - вместо закрытия перевесить на открытие.
+
 function addNewCard (evt) {
   evt.preventDefault();
   const newCard = {name: newCardName.value, link: newCardLink.value};
