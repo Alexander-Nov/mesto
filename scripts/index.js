@@ -36,7 +36,7 @@ const buttonCloseImagePopup = imagePopup.querySelector(".popup__close-button");
 const titleImagePopup = imagePopup.querySelector(".popup__image-title");
 const fotoImagePopup = imagePopup.querySelector(".popup__image");
 
-function onDocumentKeyDown(evt) {
+function closePopupByEsc(evt) {
   if (evt.key === "Escape") {
     const currentPopup = document.querySelector(".popup_opened");
     if (!currentPopup.querySelector(".popup__form")) {
@@ -55,12 +55,12 @@ function onDocumentKeyDown(evt) {
 
 function openPopup(elementToPopup) {
   elementToPopup.classList.add("popup_opened");
-  document.addEventListener('keydown', onDocumentKeyDown);
+  document.addEventListener('keydown', closePopupByEsc);
 }
 
 function closePopup(elementToClose) {
   elementToClose.classList.remove("popup_opened");
-  document.removeEventListener('keydown', onDocumentKeyDown);
+  document.removeEventListener('keydown', closePopupByEsc);
 }
 
 function prepareProfilePopup() {
