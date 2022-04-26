@@ -129,7 +129,6 @@ buttonEditProfile.addEventListener('click', () => {
 });
 
 buttonCloseProfile.addEventListener('click', () => {
-  hideAllInputErrorsOnOpen(profileEditForm, validationConfig); // вызываем функцию перебора и обнуления ошибок всех инпутов текущей формы
   closePopup(profilePopup);
 });
 
