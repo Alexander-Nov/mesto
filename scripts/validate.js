@@ -22,7 +22,7 @@ const hideInputError = (formElement, inputElement, {inputErrorClass, errorClass}
   inputElement.classList.remove(inputErrorClass);
 };
 
-const hideAllInputErrorsOnClose = (formElement, valConfig) => {
+const hideAllInputErrorsOnOpen = (formElement, valConfig) => {
   Array.from(formElement.querySelectorAll('.popup__input')).forEach(input => {
     hideInputError(formElement, input, valConfig);
   });
