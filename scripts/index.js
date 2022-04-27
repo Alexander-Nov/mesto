@@ -1,3 +1,9 @@
+import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
+import { disableSubmitButton } from './FormValidator.js';
+import { enableSubmitButton } from './FormValidator.js';
+import { hideAllInputErrorsOnOpen } from './FormValidator.js';
+
 // Переменные на странице
 const profilePopup = document.querySelector(".popup_type_profile");  // Попап редактирования профиля
 const profileEditForm = document.querySelector(".popup__form_type_profile");  // форма редактирования профиля
@@ -65,44 +71,18 @@ function saveProfileChanges(evt) {
   closePopup(profilePopup);
 }
 
-function createNewCard (card) {
-  const cardElement = cardTemplate.querySelector('.element').cloneNode(true); //клонируем разметку из шаблона
-  const foto = cardElement.querySelector('.element__image');
-  foto.src = card.link;
-  foto.alt = card.name;
-  cardElement.querySelector('.element__title').textContent = card.name;
-  const cardLike = cardElement.querySelector('.element__heart'); //выбираем кнопку Like и вешаем на нее слушатель
-  cardLike.addEventListener('click', setLike);
-  const deleteCardButton = cardElement.querySelector(".element__delete"); //выбираем кнопку delete и вешаем на нее слушатель
-  deleteCardButton.addEventListener('click', deleteCard);
-  foto.addEventListener('click', prepareImagePopup); //вешаем слушатель на фото для открытия во весь экран
-  return cardElement;
-}
-
-//TODO изменить процесс стирания полей - вместо закрытия перевесить на открытие.
-
 function addNewCard (evt) {
   evt.preventDefault();
-  const newCard = {name: newCardName.value, link: newCardLink.value};
-  const cardElement = createNewCard(newCard); // вызываем функцию создания узла;
-  renderCard(cardElement); // вызываем функцию добавления узла на страницу
-  closePopup(cardPopup); // закрываем cardPopup
+  const newCard = new Card({name: newCardName.value, link: newCardLink.value}, '#cardTemplate');
+  const cardElement = newCard.createNewCard(); // вызываем функцию создания узла;
+  cardElement.querySelector('.element__image').addEventListener('click', prepareImagePopup); //вешаем слушатель на фото для открытия во весь экран
+  renderCard(cardElement);
+  closePopup(cardPopup);
 }
 
 // функция отрисовки новой карточки на странице
 function renderCard (elementToRender) {
   cardsContainer.prepend(elementToRender);
-}
-
-// функция like на карточках
-function setLike (evt) {
-  evt.target.classList.toggle("element__heart_active");
-}
-
-//Удаление карточки
-function deleteCard (evt) {
-  const cardToBeDeleted = evt.target.closest('.element');
-  cardToBeDeleted.remove();
 }
 
 //Подготовка данных для imagePopup
@@ -116,7 +96,9 @@ function prepareImagePopup(evt) {
 
 // Добавляем первые 6 карточек
 initialCards.forEach((item) => {
-  const cardElement = createNewCard(item); // вызываем функцию создания узла;
+  const card = new Card(item, '#cardTemplate');
+  const cardElement = card.createNewCard(); // вызываем функцию создания узла;
+  cardElement.querySelector('.element__image').addEventListener('click', prepareImagePopup); //вешаем слушатель на фото для открытия во весь экран
   renderCard(cardElement);
 });
 
@@ -124,7 +106,7 @@ initialCards.forEach((item) => {
 buttonEditProfile.addEventListener('click', () => {
   hideAllInputErrorsOnOpen(profileEditForm, validationConfig); // вызываем функцию перебора и обнуления ошибок всех инпутов текущей формы
   prepareProfilePopup();
-  enableSubmitButton(buttonElementProfile, validationConfig);
+  enableSubmitButton(buttonElementProfile, validationConfig.inactiveButtonClass);
   openPopup(profilePopup);
 });
 
@@ -143,7 +125,7 @@ buttonCloseImagePopup.addEventListener('click', () => {
 buttonOpenCardPopup.addEventListener('click', () => {
   newCardForm.reset();  // очищаем поля ввода
   hideAllInputErrorsOnOpen(newCardForm, validationConfig); // вызываем функцию перебора и обнуления ошибок всех инпутов текущей формы
-  disableSubmitButton(buttonAddCard, validationConfig);
+  disableSubmitButton(buttonAddCard, validationConfig.inactiveButtonClass);
   openPopup(cardPopup);
 });
 
@@ -159,4 +141,13 @@ popupList.forEach((popup) => {
               closePopup(popup);
     }
   });
+});
+
+const formList = Array.from(document.querySelectorAll(validationConfig.formSelector));
+formList.forEach((formElement) => {
+  const form = new FormValidator(validationConfig, formElement);
+  formElement.addEventListener('sumbit', (evt) => {
+    evt.preventDefault();
+  });
+  form.enableValidation();
 });
