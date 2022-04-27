@@ -45,7 +45,7 @@ const fotoImagePopup = imagePopup.querySelector(".popup__image");
 function closePopupByEsc(evt) {
   if (evt.key === "Escape") {
     const currentPopup = document.querySelector(".popup_opened");
-      closePopup(currentPopup);
+    closePopup(currentPopup);
   };
 }
 
@@ -138,7 +138,7 @@ newCardForm.addEventListener('submit', addNewCard);
 popupList.forEach((popup) => {
   popup.addEventListener("mousedown", (evt) => {
     if (evt.target.classList.contains("popup_opened")) {
-              closePopup(popup);
+      closePopup(popup);
     }
   });
 });
