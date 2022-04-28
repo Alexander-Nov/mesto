@@ -1,4 +1,4 @@
-const initialCards = [
+export const initialCards = [
   {
     name: 'Иваново',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
@@ -26,7 +26,7 @@ const initialCards = [
 ];
 
 // конфигурация переменных для валидации
-const validationConfig = {
+export const validationConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
   submitButtonSelector: ".popup__submit-button",

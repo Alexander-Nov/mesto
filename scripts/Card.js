@@ -1,9 +1,10 @@
 export class Card {
 
-  constructor(card, templateSelector) {
+  constructor(card, templateSelector, imagePopupFunction) {
     this._cardName = card.name;
     this._cardLink = card.link;
     this._templateSelector = templateSelector;
+    this._imagePopupFunction = imagePopupFunction;
   }
 
   _getTemplate() {
@@ -17,6 +18,7 @@ export class Card {
 
   _deleteCard() {
     this._element.remove();
+    this._cardElement = null; // зануллить элемент ??????????????????????? ПРОВЕРИТЬ ПОТОМ
   }
 
   _setEventListeners() {
@@ -26,17 +28,21 @@ export class Card {
     this._element.querySelector(".element__delete").addEventListener('click', () => { //слушатель на кнопку delete
       this._deleteCard();
     });
+
+    this._element.querySelector('.element__image').addEventListener('click', (evt) => {
+      this._imagePopupFunction(evt);
+    });
   }
 
   createNewCard() {
     this._element = this._getTemplate(); // скопировали шаблон = получили элемент карточки
-
-    this._element.querySelector('.element__image').src = this._cardLink; // наполняем данными
-    this._element.querySelector('.element__image').alt = this._cardName;
+    const foto = this._element.querySelector('.element__image');
+    foto.src = this._cardLink; // наполняем данными
+    foto.alt = this._cardName;
     this._element.querySelector('.element__title').textContent = this._cardName;
 
     this._setEventListeners();
-
+    // console.log(this._imagePopupFunction);
     return this._element;
   }
 

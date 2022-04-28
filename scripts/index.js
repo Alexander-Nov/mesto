@@ -1,3 +1,4 @@
+import { initialCards, validationConfig } from './initial.js';
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 import { disableSubmitButton } from './FormValidator.js';
@@ -71,11 +72,25 @@ function saveProfileChanges(evt) {
   closePopup(profilePopup);
 }
 
+function prepareNewCard (card, templateSelector, imagePopupFunction) {
+  const newCard = new Card(card, templateSelector, imagePopupFunction);
+  const cardElement = newCard.createNewCard(); // вызываем функцию создания узла;
+  return cardElement;
+}
+
+//Подготовка данных для imagePopup
+function prepareImagePopup(evt) {
+  const fotoLink = evt.target.src;
+  const fotoTitle = evt.target.alt;
+  titleImagePopup.textContent = fotoTitle;
+  fotoImagePopup.src = fotoLink;
+  fotoImagePopup.alt = fotoTitle;
+  openPopup(imagePopup);
+}
+
 function addNewCard (evt) {
   evt.preventDefault();
-  const newCard = new Card({name: newCardName.value, link: newCardLink.value}, '#cardTemplate');
-  const cardElement = newCard.createNewCard(); // вызываем функцию создания узла;
-  cardElement.querySelector('.element__image').addEventListener('click', prepareImagePopup); //вешаем слушатель на фото для открытия во весь экран
+  const cardElement = prepareNewCard({name: newCardName.value, link: newCardLink.value}, '#cardTemplate', prepareImagePopup);
   renderCard(cardElement);
   closePopup(cardPopup);
 }
@@ -85,20 +100,9 @@ function renderCard (elementToRender) {
   cardsContainer.prepend(elementToRender);
 }
 
-//Подготовка данных для imagePopup
-function prepareImagePopup(evt) {
-  const fotoLink = evt.target.src;
-  const fotoTitle = evt.target.alt;
-  titleImagePopup.textContent = fotoTitle;
-  fotoImagePopup.src = fotoLink;
-  openPopup(imagePopup);
-}
-
 // Добавляем первые 6 карточек
 initialCards.forEach((item) => {
-  const card = new Card(item, '#cardTemplate');
-  const cardElement = card.createNewCard(); // вызываем функцию создания узла;
-  cardElement.querySelector('.element__image').addEventListener('click', prepareImagePopup); //вешаем слушатель на фото для открытия во весь экран
+  const cardElement = prepareNewCard(item, '#cardTemplate', prepareImagePopup);
   renderCard(cardElement);
 });
 
@@ -143,11 +147,14 @@ popupList.forEach((popup) => {
   });
 });
 
-const formList = Array.from(document.querySelectorAll(validationConfig.formSelector));
-formList.forEach((formElement) => {
-  const form = new FormValidator(validationConfig, formElement);
+Array.from(document.querySelectorAll(".popup__form")).forEach((formElement) => {
   formElement.addEventListener('sumbit', (evt) => {
     evt.preventDefault();
   });
-  form.enableValidation();
 });
+
+const formProfileValidation = new FormValidator(profileEditForm, validationConfig);
+formProfileValidation.enableValidation();
+
+const formAddCardValidation = new FormValidator(newCardForm, validationConfig);
+formAddCardValidation.enableValidation();
