@@ -29,8 +29,8 @@ export class Card {
       this._deleteCard();
     });
 
-    this._element.querySelector('.element__image').addEventListener('click', () => { //слушатель на клик по фото
-      this._imagePopupFunction();
+    this._element.querySelector('.element__image').addEventListener('click', (evt) => { //слушатель на клик по фото
+      this._imagePopupFunction(evt);
     });
   }
 
