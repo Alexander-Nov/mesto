@@ -18,7 +18,7 @@ export class Card {
 
   _deleteCard() {
     this._element.remove();
-    this._cardElement = null; // зануллить элемент ??????????????????????? ПРОВЕРИТЬ ПОТОМ
+    this._cardElement = null;
   }
 
   _setEventListeners() {
@@ -29,8 +29,8 @@ export class Card {
       this._deleteCard();
     });
 
-    this._element.querySelector('.element__image').addEventListener('click', (evt) => {
-      this._imagePopupFunction(evt);
+    this._element.querySelector('.element__image').addEventListener('click', () => { //слушатель на клик по фото
+      this._imagePopupFunction();
     });
   }
 
@@ -40,9 +40,7 @@ export class Card {
     foto.src = this._cardLink; // наполняем данными
     foto.alt = this._cardName;
     this._element.querySelector('.element__title').textContent = this._cardName;
-
     this._setEventListeners();
-    // console.log(this._imagePopupFunction);
     return this._element;
   }
 

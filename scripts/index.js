@@ -79,18 +79,16 @@ function prepareNewCard (card, templateSelector, imagePopupFunction) {
 }
 
 //Подготовка данных для imagePopup
-function prepareImagePopup(evt) {
-  const fotoLink = evt.target.src;
-  const fotoTitle = evt.target.alt;
-  titleImagePopup.textContent = fotoTitle;
-  fotoImagePopup.src = fotoLink;
-  fotoImagePopup.alt = fotoTitle;
+function prepareImagePopup(link, name) {
+  titleImagePopup.textContent = name;
+  fotoImagePopup.src = link;
+  fotoImagePopup.alt = name;
   openPopup(imagePopup);
 }
 
 function addNewCard (evt) {
   evt.preventDefault();
-  const cardElement = prepareNewCard({name: newCardName.value, link: newCardLink.value}, '#cardTemplate', prepareImagePopup);
+  const cardElement = prepareNewCard({name: newCardName.value, link: newCardLink.value}, '#cardTemplate', () => {prepareImagePopup(newCardLink.value, newCardName.value)});
   renderCard(cardElement);
   closePopup(cardPopup);
 }
@@ -102,7 +100,7 @@ function renderCard (elementToRender) {
 
 // Добавляем первые 6 карточек
 initialCards.forEach((item) => {
-  const cardElement = prepareNewCard(item, '#cardTemplate', prepareImagePopup);
+  const cardElement = prepareNewCard(item, '#cardTemplate', () => {prepareImagePopup(item.link, item.name)});
   renderCard(cardElement);
 });
 
