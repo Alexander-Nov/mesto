@@ -70,7 +70,7 @@ export class FormValidator {
   }
 
   hideAllInputErrorsOnOpen () {
-    Array.from(this._formElement.querySelectorAll('.popup__input')).forEach((input) => {
+    this._inputList.forEach((input) => {
       this._hideInputError(input);
     });
   }
