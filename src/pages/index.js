@@ -1,12 +1,12 @@
-import { initialCards, validationConfig } from './initial.js';
-import { Card } from './Card.js';
-import { FormValidator } from './FormValidator.js';
-import Section from './Section.js';
-import Popup from './Popup.js';
-import PopupWithImage from './PopupWithImage.js';
-import PopupWithForm from './PopupWithForm.js';
-import UserInfo from './UserInfo.js';
-
+import { initialCards, validationConfig } from '../components/initial.js';
+import { Card } from '../components/Card.js';
+import { FormValidator } from '../components/FormValidator.js';
+import Section from '../components/Section.js';
+import Popup from '../components/Popup.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
+import './index.css';
 
 // Переменные на странице
 const profilePopup = document.querySelector(".popup_type_profile");  // Попап редактирования профиля
@@ -24,8 +24,7 @@ const newCardLink = cardPopup.querySelector(".popup__input-prof");
 const popupItemEditProfile = new PopupWithForm (".popup_type_profile", {
   formSubmitter: (evt) => {
     evt.preventDefault();
-    let newData = popupItemEditProfile._getInputValues();
-    // console.log(newData);
+    const newData = popupItemEditProfile._getInputValues();
     user.setUserInfo(newData);
     popupItemEditProfile.close();
   }

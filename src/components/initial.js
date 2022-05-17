@@ -1,3 +1,7 @@
+const mexicoImage = new URL('../images/los-cabos-mexico.jpg', import.meta.url);
+const italyImage = new URL('../images/italy.jpg', import.meta.url);
+const fallsImage = new URL('../images/falls-creek.jpg', import.meta.url);
+
 export const initialCards = [
   {
     name: 'Иваново',
@@ -13,15 +17,15 @@ export const initialCards = [
   },
   {
     name: 'Мексика, Los Cabos',
-    link: './images/los-cabos-mexico.jpg'
+    link: mexicoImage
   },
   {
     name: 'Италия',
-    link: './images/italy.jpg'
+    link: italyImage
   },
   {
     name: 'Водопад',
-    link: './images/falls-creek.jpg'
+    link: fallsImage
   }
 ];
 

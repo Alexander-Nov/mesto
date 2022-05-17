@@ -6,18 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto Russia</title>
-  <link rel="stylesheet" href="pages/index.css">
 </head>
 
 <body>
   <div class="page">
     <header class="header">
-      <img class="header__logo" src="./images/header-logo.svg" alt="Логотип с надписью Место Россия">
+      <img class="header__logo" src="<%=require('./images/header-logo.svg')%>" alt="Логотип с надписью Место Россия">
     </header>
 
     <main class="main-content">
       <section class="profile">
-        <img class="profile__avatar" src="./images/сousteau-avatar.jpg" alt="Изображение пользователя - аватар">
+        <img class="profile__avatar" src="<%=require('./images/сousteau-avatar.jpg')%>" alt="Изображение пользователя - аватар">
         <div class="profile__info">
           <div class="profile__top-line">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -107,7 +106,7 @@
 
   <template id="cardTemplate">
     <div class="element">
-      <img class="element__image" src="./images/falls-creek.jpg" alt=" ">
+      <img class="element__image" src="<%=require('./images/falls-creek.jpg')%>" alt=" ">
       <div class="element__title-block">
         <h2 class="element__title"></h2>
         <button class="element__heart" type="button" aria-label="Нравится"></button>
@@ -119,7 +118,6 @@
 
 
   </div>
-  <script type="module" src="./scripts/index.js"></script>
 </body>
 
 </html>
