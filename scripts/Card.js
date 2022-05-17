@@ -1,10 +1,10 @@
 export class Card {
 
-  constructor(card, templateSelector, imagePopupFunction) {
+  constructor(card, templateSelector, handleCardClick) {
     this._cardName = card.name;
     this._cardLink = card.link;
     this._templateSelector = templateSelector;
-    this._imagePopupFunction = imagePopupFunction;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -30,7 +30,7 @@ export class Card {
     });
 
     this._element.querySelector('.element__image').addEventListener('click', (evt) => { //слушатель на клик по фото
-      this._imagePopupFunction(evt);
+      this._handleCardClick(evt);
     });
   }
 
