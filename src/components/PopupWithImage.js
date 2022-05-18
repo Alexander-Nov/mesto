@@ -9,15 +9,10 @@ export default class PopupWithImage extends Popup {
     this._fotoTitle = this._popup.querySelector(".popup__image-title");
   }
 
-  open (evt) {
-    this._fotoLink = evt.target.src;
-    this._fotoName = evt.target.alt;
-
-    this._fotoTitle.textContent = this._fotoName;
-    this._foto.src = this._fotoLink;
-    this._foto.alt = this._fotoName;
-    this._popup.classList.add("popup_opened");
-    document.addEventListener('keydown', this._handleEscClose);
+  open (fotoData) {
+    this._fotoTitle.textContent = fotoData.name;
+    this._foto.src = fotoData.link;
+    this._foto.alt = fotoData.name;
+    super.open();
   }
-
 }

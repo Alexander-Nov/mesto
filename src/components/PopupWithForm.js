@@ -4,16 +4,9 @@ export default class PopupWithForm extends Popup {
 
   constructor(popupSelector, { formSubmitter }) {
     super(popupSelector);
-    this._popup = document.querySelector(popupSelector);
     this._formSubmitter = formSubmitter;
     this._form = this._popup.querySelector('.popup__form');
     this._inputs = this._form.querySelectorAll('.popup__input');
-
-  }
-
-  showInfo (evt) {
-    console.log(this._formSubmitter);
-    console.log(evt);
   }
 
   _getInputValues () {
@@ -25,24 +18,14 @@ export default class PopupWithForm extends Popup {
   }
 
   close () {
-    this._popup.classList.remove("popup_opened");
-    document.removeEventListener('keydown', this._handleEscClose);
+    super.close();
     this._form.reset();
   }
 
   setEventListeners () {
-    this._closeButton.addEventListener('click', () => {
-      this.close();
-    });
-
-    this._popup.addEventListener('submit', (evt) => {
-      this._formSubmitter(evt);
+    super.setEventListeners();
+    this._form.addEventListener('submit', (evt) => {
+      this._formSubmitter(this._getInputValues(), evt);
     })
-
-    this._popup.addEventListener("mousedown", (evt) => {
-      if (evt.target.classList.contains("popup_opened")) {
-        this.close();
-      }
-    });
   }
 }

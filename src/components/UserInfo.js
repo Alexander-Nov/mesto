@@ -14,8 +14,4 @@ export default class UserInfo {
     this._currentName.textContent = newData["input-name"];
     this._currentProf.textContent = newData["input-prof"];
   }
-
-  showInfo () {
-    console.log(this._currentName);
-  }
 }

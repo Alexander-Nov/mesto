@@ -1,8 +1,7 @@
-import { initialCards, validationConfig } from '../components/initial.js';
+import { initialCards, validationConfig } from '../utils/initial.js';
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
 import Section from '../components/Section.js';
-import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
@@ -18,30 +17,27 @@ const buttonEditProfile = document.querySelector(".profile__edit-button");  // �
 const buttonOpenCardPopup = document.querySelector(".profile__add-button");  // кнопка добавления новой карточки
 const nameToBeDisplayed = profilePopup.querySelector(".popup__input-name");
 const professionToBeDisplayed = profilePopup.querySelector(".popup__input-prof");
-const newCardName = cardPopup.querySelector(".popup__input-name");
-const newCardLink = cardPopup.querySelector(".popup__input-prof");
 
 const popupItemEditProfile = new PopupWithForm (".popup_type_profile", {
-  formSubmitter: (evt) => {
+  formSubmitter: (profileData, evt) => {
     evt.preventDefault();
-    const newData = popupItemEditProfile._getInputValues();
-    user.setUserInfo(newData);
+    user.setUserInfo(profileData);
     popupItemEditProfile.close();
   }
 });
 
-const user = new UserInfo ({nameSelector: ".profile__name", profSelector: ".profile__description"});
-
 const popupItemAddNewCard = new PopupWithForm (".popup_type_card", {
-  formSubmitter: (evt) => {
+  formSubmitter: (cardData, evt) => {
     evt.preventDefault();
-    const cardElement = prepareNewCard({name: newCardName.value, link: newCardLink.value}, '#cardTemplate', popupItemImage.open.bind(popupItemImage));
+    const cardElement = prepareNewCard({name: cardData["addCard-input-name"], link: cardData["addCard-input-link"]}, '#cardTemplate', popupItemImage.open.bind(popupItemImage));
     cardsList.addItem(cardElement);
     popupItemAddNewCard.close();
   }
 });
 
 const popupItemImage = new PopupWithImage (".popup_type_image");
+
+const user = new UserInfo ({nameSelector: ".profile__name", profSelector: ".profile__description"});
 
 function prepareProfilePopup() {
   const userData = user.getUserInfo();
