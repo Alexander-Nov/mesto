@@ -6,8 +6,6 @@ export class Card {
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
     this._element = this._getTemplate(); // скопировали шаблон = получили элемент карточки
-    this._elementHeart = this._element.querySelector('.element__heart');
-    this._foto = this._element.querySelector('.element__image');
   }
 
   _getTemplate() {
@@ -25,6 +23,7 @@ export class Card {
   }
 
   _setEventListeners() {
+    this._elementHeart = this._element.querySelector('.element__heart');
     this._elementHeart.addEventListener('click', () => { //слушатель на кнопку Like
       this._setLike();
     });
@@ -38,6 +37,7 @@ export class Card {
   }
 
   createNewCard() {
+    this._foto = this._element.querySelector('.element__image');
     this._foto.src = this._cardLink; // наполняем данными
     this._foto.alt = this._cardName;
     this._element.querySelector('.element__title').textContent = this._cardName;

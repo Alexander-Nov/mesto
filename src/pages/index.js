@@ -19,16 +19,14 @@ const nameToBeDisplayed = profilePopup.querySelector(".popup__input-name");
 const professionToBeDisplayed = profilePopup.querySelector(".popup__input-prof");
 
 const popupItemEditProfile = new PopupWithForm (".popup_type_profile", {
-  formSubmitter: (profileData, evt) => {
-    evt.preventDefault();
+  formSubmitter: (profileData) => {
     user.setUserInfo(profileData);
     popupItemEditProfile.close();
   }
 });
 
 const popupItemAddNewCard = new PopupWithForm (".popup_type_card", {
-  formSubmitter: (cardData, evt) => {
-    evt.preventDefault();
+  formSubmitter: (cardData) => {
     const cardElement = prepareNewCard({name: cardData["addCard-input-name"], link: cardData["addCard-input-link"]}, '#cardTemplate', popupItemImage.open.bind(popupItemImage));
     cardsList.addItem(cardElement);
     popupItemAddNewCard.close();
