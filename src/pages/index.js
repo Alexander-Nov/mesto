@@ -5,6 +5,7 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
+import Api from '../components/Api.js';
 import './index.css';
 
 // Переменные на странице
@@ -18,24 +19,43 @@ const buttonOpenCardPopup = document.querySelector(".profile__add-button");  // 
 const nameToBeDisplayed = profilePopup.querySelector(".popup__input-name");
 const professionToBeDisplayed = profilePopup.querySelector(".popup__input-prof");
 
+const user = new UserInfo ({nameSelector: ".profile__name", profSelector: ".profile__description"});
+
+const apiElement = new Api(user);
+apiElement.getUserData();
+
+
+
 const popupItemEditProfile = new PopupWithForm (".popup_type_profile", {
   formSubmitter: (profileData) => {
-    user.setUserInfo(profileData);
+    popupItemEditProfile.renderLoading(true);
+    apiElement.replaceUSerData(profileData)
+    .then((data) => {
+      user.setUserInfo(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      popupItemEditProfile.renderLoading(false);
+    })
     popupItemEditProfile.close();
   }
 });
 
 const popupItemAddNewCard = new PopupWithForm (".popup_type_card", {
   formSubmitter: (cardData) => {
-    const cardElement = prepareNewCard({name: cardData["addCard-input-name"], link: cardData["addCard-input-link"]}, '#cardTemplate', popupItemImage.open.bind(popupItemImage));
-    cardsList.addItem(cardElement);
-    popupItemAddNewCard.close();
+    console.log(cardData);
+    apiElement.postNewCard({name: cardData["addCard-input-name"], link: cardData["addCard-input-link"]})
+    .then(() => {
+      const cardElement = prepareNewCard({name: cardData["addCard-input-name"], link: cardData["addCard-input-link"]}, '#cardTemplate', popupItemImage.open.bind(popupItemImage));
+      cardsList.addItem(cardElement);
+      popupItemAddNewCard.close();
+    })
   }
 });
 
 const popupItemImage = new PopupWithImage (".popup_type_image");
-
-const user = new UserInfo ({nameSelector: ".profile__name", profSelector: ".profile__description"});
 
 function prepareProfilePopup() {
   const userData = user.getUserInfo();
@@ -50,7 +70,7 @@ function prepareNewCard (card, templateSelector, imagePopupFunction) {
 }
 
 const cardsList = new Section({
-  items: initialCards,
+  items: '',
   renderer: (cardItem) => {
     const cardElement = prepareNewCard(cardItem, '#cardTemplate', popupItemImage.open.bind(popupItemImage));
     cardsList.addItem(cardElement);
@@ -59,7 +79,18 @@ const cardsList = new Section({
 '.elements'
 );
 
-cardsList.renderItems();
+console.log(cardsList);
+
+apiElement.getInitialCards()
+.then((initialCardsList) => {
+  cardsList.renderingItems = initialCardsList;
+})
+.then(() => {
+  cardsList.renderItems();
+})
+
+
+// cardsList.renderItems();
 
 popupItemEditProfile.setEventListeners();
 popupItemAddNewCard.setEventListeners();
@@ -85,3 +116,5 @@ formProfileValidator.enableValidation();
 
 const formAddCardValidator = new FormValidator(newCardForm, validationConfig);
 formAddCardValidator.enableValidation();
+
+console.log(cardsList);
