@@ -11,10 +11,10 @@ export default class PopupWithForm extends Popup {
 
   renderLoading(isLoading) {
     if (isLoading) {
-      console.log('заменили надпись на Сохранение .....');
+      // console.log('заменили надпись на Сохранение .....');
       this._form.querySelector('.popup__submit-button').textContent = "Сохранение...";
       } else {
-        console.log('заменили надпись на Сохранить');
+        // console.log('заменили надпись на Сохранить');
         this._form.querySelector('.popup__submit-button').textContent = "Сохранить";
       }
   }

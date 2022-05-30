@@ -17,14 +17,28 @@ export default class Api {
     })
       .then((res) => {
         if (res.ok) {
-          console.log('получили ОК поновой карте');
+          // console.log('получили ОК поновой карте');
           return Promise.resolve(res.json());
         }
         return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
       });
+  }
+
+  deleteCard(cardId) {
+    return fetch(`https://mesto.nomoreparties.co/v1/cohort-42/cards/${cardId}`, {
+      method: "DELETE",
+      headers: {
+        authorization: "59f5e864-0688-4993-901f-7b637899b27f",
+        "content-type": "application/json",
+      }
+    })
+    .then((res) => {
+      if (res.ok) {
+        // console.log('получили ОК по удалению карты');
+        return Promise.resolve(res.json());
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
   }
 
   getUserData() {
@@ -39,7 +53,11 @@ export default class Api {
         document.querySelector(".profile__description").textContent =
           result.about;
         document.querySelector(".profile__avatar").src = result.avatar;
+        // return Promise.resolve(result._id);
+        // myId = result._id;
+        // console.log(result._id);
       })
+      // .then((result) => {return Promise.resolve(result._id);})
       .catch((err) => {
         console.log(err);
       });
