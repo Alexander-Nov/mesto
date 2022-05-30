@@ -65,7 +65,7 @@ const popupItemAddNewCard = new PopupWithForm (".popup_type_card", {
         '#cardTemplate',
         popupItemImage.open.bind(popupItemImage),
         (cardId) => {popupItemDeleteSubmition.open(cardId, cardElement)});
-      cardsList.addItem(cardElement);
+      cardsList.addItem(cardElement, true);
       popupItemAddNewCard.close();
     })
     .catch((err) => {
@@ -112,8 +112,8 @@ function prepareProfilePopup() {
   professionToBeDisplayed.value = userData.prof;
 }
 
-function prepareNewCard (card, templateSelector, imagePopupFunction, cardDeleteFunction) {
-  const newCard = new Card(card, templateSelector, imagePopupFunction, cardDeleteFunction);
+function prepareNewCard (card, templateSelector, imagePopupFunction, cardDeleteFunction, cardLikeFunction) {
+  const newCard = new Card(card, templateSelector, imagePopupFunction, cardDeleteFunction, cardLikeFunction);
   const cardElement = newCard.createNewCard(); // вызываем функцию создания узла;
   return cardElement;
 }
@@ -123,8 +123,26 @@ const cardsList = new Section({
   renderer: (cardItem) => {
     // console.log(cardItem);
     // const cardElement = prepareNewCard(cardItem, '#cardTemplate', popupItemImage.open.bind(popupItemImage), (cardItem) => {popupItemDeleteSubmition.open(cardItem._id)});
-    const cardElement = prepareNewCard(cardItem, '#cardTemplate', popupItemImage.open.bind(popupItemImage), (cardId, element) => {popupItemDeleteSubmition.open(cardId, element)});
-    cardsList.addItem(cardElement);
+    const cardElement = prepareNewCard(
+      cardItem,
+      '#cardTemplate',
+      popupItemImage.open.bind(popupItemImage),
+      (cardId, element) => {popupItemDeleteSubmition.open(cardId, element)},
+      (cardId, element) => {
+        apiElement.addLike(cardId)
+        .then((data) => {
+          // console.log(data);
+          // console.log(element);
+          element.querySelector(".element__heart").classList.add("element__heart_active");
+          element.querySelector('.element__like-counter').textContent = data.likes.length;
+          // cardElement.setLike();
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+      }
+      );
+    cardsList.addItem(cardElement, false);
   },
 },
 '.elements'

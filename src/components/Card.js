@@ -1,6 +1,6 @@
 export class Card {
 
-  constructor(card, templateSelector, handleCardClick, handleDeleteClick) {
+  constructor(card, templateSelector, handleCardClick, handleDeleteClick, handleLikeClick) {
     this._cardName = card.name;
     this._cardLink = card.link;
     this._id = card._id;
@@ -12,7 +12,10 @@ export class Card {
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
     this._handleDeleteClick = handleDeleteClick;
+    this._handleDeleteClick = handleDeleteClick;
+    this._handleLikeClick = handleLikeClick;
     this._element = this._getTemplate(); // скопировали шаблон = получили элемент карточки
+    this._elementHeart = this._element.querySelector('.element__heart');
   }
 
   _getTemplate() {
@@ -21,8 +24,9 @@ export class Card {
   }
 
   _setLike() {
-    this._elementHeart.classList.toggle("element__heart_active");
+    this._elementHeart.classList.add("element__heart_active");
   }
+
 
   _deleteCardFromDOM() {
     this._element.remove();
@@ -32,9 +36,10 @@ export class Card {
   }
 
   _setEventListeners() {
-    this._elementHeart = this._element.querySelector('.element__heart');
+    // this._elementHeart = this._element.querySelector('.element__heart');
     this._elementHeart.addEventListener('click', () => { //слушатель на кнопку Like
-      this._setLike();
+      // this._setLike();
+      this._handleLikeClick(this._id, this._element);
     });
     this._element.querySelector(".element__delete").addEventListener('click', () => { //слушатель на кнопку delete
       this._handleDeleteClick(this._id, this._element);
@@ -50,8 +55,13 @@ export class Card {
     this._foto.src = this._cardLink; // наполняем данными
     this._foto.alt = this._cardName;
     this._element.querySelector('.element__title').textContent = this._cardName;
+    this._element.querySelector('.element__like-counter').textContent = this.likes.length;
     this._element.querySelector(".element__delete").classList.add(this._userId === this._ownerId ? 'element__delete_visible' : 'element__delete_hidden');
-    // console.log(this._element.querySelector(".element__delete"));
+    this.likes.forEach((likeItem) => {
+      if (likeItem._id === this._userId) {
+        this._setLike();
+      }
+    })
     this._setEventListeners();
     return this._element;
   }

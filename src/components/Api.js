@@ -100,4 +100,36 @@ export default class Api {
       return Promise.reject(`Ошибка: ${res.status}`);
     });
   }
+
+  addLike(cardId) {
+    //PUT https://mesto.nomoreparties.co/v1/cohortId/cards/cardId/likes
+    return fetch(`https://mesto.nomoreparties.co/v1/cohort-42/cards/${cardId}/likes`, {
+      method: "PUT",
+      headers: {
+        authorization: "59f5e864-0688-4993-901f-7b637899b27f",
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      if (res.ok) {
+        return Promise.resolve(res.json());
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
+  }
+
+  deleteLike(cardId) {
+    //PUT https://mesto.nomoreparties.co/v1/cohortId/cards/cardId/likes
+    return fetch(`https://mesto.nomoreparties.co/v1/cohort-42/cards/${cardId}/likes`, {
+      method: "DELETE",
+      headers: {
+        authorization: "59f5e864-0688-4993-901f-7b637899b27f",
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      if (res.ok) {
+        return Promise.resolve(res.json());
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
+  }
 }
