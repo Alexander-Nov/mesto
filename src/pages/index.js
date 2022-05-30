@@ -54,6 +54,7 @@ const popupItemAddNewCard = new PopupWithForm (".popup_type_card", {
     popupItemAddNewCard.renderLoading(true);
     apiElement.postNewCard({name: cardData["addCard-input-name"], link: cardData["addCard-input-link"]})
     .then((data) => {
+      //card, templateSelector, imagePopupFunction, cardDeleteFunction, cardLikeFunction
       const cardElement = prepareNewCard(
         {
           name: cardData["addCard-input-name"],
@@ -64,7 +65,36 @@ const popupItemAddNewCard = new PopupWithForm (".popup_type_card", {
         },
         '#cardTemplate',
         popupItemImage.open.bind(popupItemImage),
-        (cardId) => {popupItemDeleteSubmition.open(cardId, cardElement)});
+        (cardId) => {popupItemDeleteSubmition.open(cardId, cardElement)},
+        (cardId, element) => {
+          if (!element.querySelector(".element__heart").classList.contains("element__heart_active")) {
+          apiElement.addLike(cardId)
+          .then((data) => {
+            // console.log(data);
+            // console.log(element);
+            element.querySelector(".element__heart").classList.add("element__heart_active");
+            element.querySelector('.element__like-counter').textContent = data.likes.length;
+            // cardElement.setLike();
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+        } else {
+          console.log("удаляем лайк");
+          apiElement.deleteLike(cardId)
+          .then((data) => {
+            // console.log(data);
+            // console.log(element);
+            element.querySelector(".element__heart").classList.remove("element__heart_active");
+            element.querySelector('.element__like-counter').textContent = data.likes.length;
+            // cardElement.setLike();
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+        }
+        }
+        );
       cardsList.addItem(cardElement, true);
       popupItemAddNewCard.close();
     })
@@ -89,7 +119,6 @@ formSubmitter: (cardId, elementId) => {
     // console.log(elementId);
 
     elementId.remove();
-    // this._cardElement = null;
     popupItemDeleteSubmition.close();
   })
   .catch((err) => {
@@ -129,6 +158,7 @@ const cardsList = new Section({
       popupItemImage.open.bind(popupItemImage),
       (cardId, element) => {popupItemDeleteSubmition.open(cardId, element)},
       (cardId, element) => {
+        if (!element.querySelector(".element__heart").classList.contains("element__heart_active")) {
         apiElement.addLike(cardId)
         .then((data) => {
           // console.log(data);
@@ -140,6 +170,20 @@ const cardsList = new Section({
         .catch((err) => {
           console.log(err);
         })
+      } else {
+        console.log("удаляем лайк");
+        apiElement.deleteLike(cardId)
+        .then((data) => {
+          // console.log(data);
+          // console.log(element);
+          element.querySelector(".element__heart").classList.remove("element__heart_active");
+          element.querySelector('.element__like-counter').textContent = data.likes.length;
+          // cardElement.setLike();
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+      }
       }
       );
     cardsList.addItem(cardElement, false);
