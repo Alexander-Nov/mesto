@@ -14,25 +14,26 @@ export default class Api {
         name: newCardData.name,
         link: newCardData.link,
       }),
-    })
-      .then((res) => {
-        if (res.ok) {
-          // console.log('получили ОК поновой карте');
-          return Promise.resolve(res.json());
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      });
+    }).then((res) => {
+      if (res.ok) {
+        // console.log('получили ОК поновой карте');
+        return Promise.resolve(res.json());
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
   }
 
   deleteCard(cardId) {
-    return fetch(`https://mesto.nomoreparties.co/v1/cohort-42/cards/${cardId}`, {
-      method: "DELETE",
-      headers: {
-        authorization: "59f5e864-0688-4993-901f-7b637899b27f",
-        "content-type": "application/json",
+    return fetch(
+      `https://mesto.nomoreparties.co/v1/cohort-42/cards/${cardId}`,
+      {
+        method: "DELETE",
+        headers: {
+          authorization: "59f5e864-0688-4993-901f-7b637899b27f",
+          "content-type": "application/json",
+        },
       }
-    })
-    .then((res) => {
+    ).then((res) => {
       if (res.ok) {
         // console.log('получили ОК по удалению карты');
         return Promise.resolve(res.json());
@@ -102,14 +103,16 @@ export default class Api {
   }
 
   addLike(cardId) {
-    //PUT https://mesto.nomoreparties.co/v1/cohortId/cards/cardId/likes
-    return fetch(`https://mesto.nomoreparties.co/v1/cohort-42/cards/${cardId}/likes`, {
-      method: "PUT",
-      headers: {
-        authorization: "59f5e864-0688-4993-901f-7b637899b27f",
-        "Content-Type": "application/json",
-      },
-    }).then((res) => {
+    return fetch(
+      `https://mesto.nomoreparties.co/v1/cohort-42/cards/${cardId}/likes`,
+      {
+        method: "PUT",
+        headers: {
+          authorization: "59f5e864-0688-4993-901f-7b637899b27f",
+          "Content-Type": "application/json",
+        },
+      }
+    ).then((res) => {
       if (res.ok) {
         return Promise.resolve(res.json());
       }
@@ -118,14 +121,38 @@ export default class Api {
   }
 
   deleteLike(cardId) {
-    //PUT https://mesto.nomoreparties.co/v1/cohortId/cards/cardId/likes
-    return fetch(`https://mesto.nomoreparties.co/v1/cohort-42/cards/${cardId}/likes`, {
-      method: "DELETE",
-      headers: {
-        authorization: "59f5e864-0688-4993-901f-7b637899b27f",
-        "Content-Type": "application/json",
-      },
-    }).then((res) => {
+    return fetch(
+      `https://mesto.nomoreparties.co/v1/cohort-42/cards/${cardId}/likes`,
+      {
+        method: "DELETE",
+        headers: {
+          authorization: "59f5e864-0688-4993-901f-7b637899b27f",
+          "Content-Type": "application/json",
+        },
+      }
+    ).then((res) => {
+      if (res.ok) {
+        return Promise.resolve(res.json());
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
+  }
+
+  updateAvatar(newData) {
+    //PATCH https://mesto.nomoreparties.co/v1/cohort-42/users/me/avatar
+    return fetch(
+      "https://mesto.nomoreparties.co/v1/cohort-42/users/me/avatar",
+      {
+        method: "PATCH",
+        headers: {
+          authorization: "59f5e864-0688-4993-901f-7b637899b27f",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(
+          newData,
+        )
+      }
+    ).then((res) => {
       if (res.ok) {
         return Promise.resolve(res.json());
       }

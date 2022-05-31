@@ -106,6 +106,25 @@
       </form>
     </section>
 
+    <section class="popup popup_type_new-avatar">
+      <form class="popup__form popup__form_type_new-avatar" name="avatar" novalidate>
+        <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
+        <h2 class="popup__title">Обновить аватар</h2>
+        <fieldset class="popup__fieldset">
+          <input
+            type="url"
+            id="avatar-link"
+            class="popup__input popup__input-avatar"
+            name="avatar-input-link"
+            value=""
+            required
+            placeholder="Ссылка на новый аватар">
+          <span id="avatar-link-error" class="popup__span-error"></span>
+          <button type="submit" class="popup__submit-button">Сохранить</button>
+        </fieldset>
+      </form>
+    </section>
+
     <section class="popup popup_type_image popup_dark-background popup_centered">
       <div class="popup__container">
         <button class="popup__close-button" type="button" aria-label="Закрыть"></button>

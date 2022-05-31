@@ -7,6 +7,10 @@
   border-radius: 60px;
 }
 
+.profile__avatar:hover {
+  cursor: url("../../../images/pointer-pencil.svg"), pointer;
+}
+
 @media screen and (max-width: 767px) {
   .profile__avatar {
     margin-left: auto;
