@@ -21,7 +21,8 @@ const buttonOpenCardPopup = document.querySelector(".profile__add-button");  // 
 const buttonOpenAvatarPopup = document.querySelector(".profile__avatar");  // кнопка avatar
 const nameToBeDisplayed = profilePopup.querySelector(".popup__input-name");
 const professionToBeDisplayed = profilePopup.querySelector(".popup__input-prof");
-const myId = 'f1e0b482b9b7811852c249f7';
+let myId = '';
+
 
 const user = new UserInfo ({
   nameSelector: ".profile__name",
@@ -30,13 +31,28 @@ const user = new UserInfo ({
 });
 
 const apiElement = new Api(user);
-apiElement.getUserData();
-// .then((id) => {
-//   myId = id;
-//   console.log(myId);
-// });
 
+apiElement.getUserData()
+.then((result) => {
+  document.querySelector(".profile__name").textContent = result.name;
+  document.querySelector(".profile__description").textContent = result.about;
+  buttonOpenAvatarPopup.src = result.avatar;
+  myId = result._id;
+})
+.catch((err) => {
+  console.log(err);
+});
 
+apiElement.getInitialCards()
+.then((initialCardsList) => {
+  cardsList.renderingItems = initialCardsList;
+})
+.then(() => {
+  cardsList.renderItems();
+})
+.catch((err) => {
+  console.log(err);
+});
 
 const popupItemEditProfile = new PopupWithForm (".popup_type_profile", {
   formSubmitter: (profileData) => {
@@ -57,11 +73,9 @@ const popupItemEditProfile = new PopupWithForm (".popup_type_profile", {
 
 const popupItemReplaceAvatar = new PopupWithForm (".popup_type_new-avatar", {
   formSubmitter: (data) => {
-    // console.log('Меняем аватар')
     popupItemReplaceAvatar.renderLoading(true);
     apiElement.updateAvatar({avatar: data["avatar-input-link"]})
     .then((data) => {
-    //   user.setUserInfo(data);
       user.replaceAvatar(data);
     })
     .catch((err) => {
@@ -79,7 +93,6 @@ const popupItemAddNewCard = new PopupWithForm (".popup_type_card", {
     popupItemAddNewCard.renderLoading(true);
     apiElement.postNewCard({name: cardData["addCard-input-name"], link: cardData["addCard-input-link"]})
     .then((data) => {
-      //card, templateSelector, imagePopupFunction, cardDeleteFunction, cardLikeFunction
       const cardElement = prepareNewCard(
         {
           name: cardData["addCard-input-name"],
@@ -95,11 +108,8 @@ const popupItemAddNewCard = new PopupWithForm (".popup_type_card", {
           if (!element.querySelector(".element__heart").classList.contains("element__heart_active")) {
           apiElement.addLike(cardId)
           .then((data) => {
-            // console.log(data);
-            // console.log(element);
             element.querySelector(".element__heart").classList.add("element__heart_active");
             element.querySelector('.element__like-counter').textContent = data.likes.length;
-            // cardElement.setLike();
           })
           .catch((err) => {
             console.log(err);
@@ -108,11 +118,8 @@ const popupItemAddNewCard = new PopupWithForm (".popup_type_card", {
           console.log("удаляем лайк");
           apiElement.deleteLike(cardId)
           .then((data) => {
-            // console.log(data);
-            // console.log(element);
             element.querySelector(".element__heart").classList.remove("element__heart_active");
             element.querySelector('.element__like-counter').textContent = data.likes.length;
-            // cardElement.setLike();
           })
           .catch((err) => {
             console.log(err);
@@ -134,15 +141,9 @@ const popupItemAddNewCard = new PopupWithForm (".popup_type_card", {
 
 const popupItemDeleteSubmition = new PopupWithSubmit (".popup_type_confirm", {
 formSubmitter: (cardId, elementId) => {
-  // console.log('зашли в форму подтверждения удаления карточки');
   popupItemDeleteSubmition.renderLoading(true);
   apiElement.deleteCard(cardId)
   .then(() => {
-    // console.log('Получили разрешение на удаление карточки');
-    // console.log(data);
-    // console.log(cardId);
-    // console.log(elementId);
-
     elementId.remove();
     popupItemDeleteSubmition.close();
   })
@@ -175,8 +176,6 @@ function prepareNewCard (card, templateSelector, imagePopupFunction, cardDeleteF
 const cardsList = new Section({
   items: '',
   renderer: (cardItem) => {
-    // console.log(cardItem);
-    // const cardElement = prepareNewCard(cardItem, '#cardTemplate', popupItemImage.open.bind(popupItemImage), (cardItem) => {popupItemDeleteSubmition.open(cardItem._id)});
     const cardElement = prepareNewCard(
       cardItem,
       '#cardTemplate',
@@ -186,11 +185,8 @@ const cardsList = new Section({
         if (!element.querySelector(".element__heart").classList.contains("element__heart_active")) {
         apiElement.addLike(cardId)
         .then((data) => {
-          // console.log(data);
-          // console.log(element);
           element.querySelector(".element__heart").classList.add("element__heart_active");
           element.querySelector('.element__like-counter').textContent = data.likes.length;
-          // cardElement.setLike();
         })
         .catch((err) => {
           console.log(err);
@@ -199,11 +195,8 @@ const cardsList = new Section({
         console.log("удаляем лайк");
         apiElement.deleteLike(cardId)
         .then((data) => {
-          // console.log(data);
-          // console.log(element);
           element.querySelector(".element__heart").classList.remove("element__heart_active");
           element.querySelector('.element__like-counter').textContent = data.likes.length;
-          // cardElement.setLike();
         })
         .catch((err) => {
           console.log(err);
@@ -216,20 +209,6 @@ const cardsList = new Section({
 },
 '.elements'
 );
-
-// console.log(cardsList);
-
-apiElement.getInitialCards()
-.then((initialCardsList) => {
-  cardsList.renderingItems = initialCardsList;
-  // console.log(initialCardsList);
-})
-.then(() => {
-  cardsList.renderItems();
-})
-
-
-// cardsList.renderItems();
 
 popupItemEditProfile.setEventListeners();
 popupItemAddNewCard.setEventListeners();
@@ -266,5 +245,3 @@ formAddCardValidator.enableValidation();
 
 const formNewAvatarValidtor = new FormValidator(newAvatarForm, validationConfig);
 formNewAvatarValidtor.enableValidation();
-
-// console.log(cardsList);

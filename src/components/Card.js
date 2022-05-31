@@ -31,14 +31,10 @@ export class Card {
   _deleteCardFromDOM() {
     this._element.remove();
     this._cardElement = null;
-    // console.log(this._id);
-    // this._handleDeleteClick(this._id);
   }
 
   _setEventListeners() {
-    // this._elementHeart = this._element.querySelector('.element__heart');
     this._elementHeart.addEventListener('click', () => { //слушатель на кнопку Like
-      // this._setLike();
       this._handleLikeClick(this._id, this._element);
     });
     this._element.querySelector(".element__delete").addEventListener('click', () => { //слушатель на кнопку delete
@@ -65,5 +61,4 @@ export class Card {
     this._setEventListeners();
     return this._element;
   }
-
 }

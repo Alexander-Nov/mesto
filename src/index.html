@@ -16,13 +16,14 @@
 
     <main class="main-content">
       <section class="profile">
-        <img class="profile__avatar" src="<%=require('./images/сousteau-avatar.jpg')%>" alt="Изображение пользователя - аватар">
+        <img class="profile__avatar" src=""
+          alt="Изображение пользователя - аватар">
         <div class="profile__info">
           <div class="profile__top-line">
             <h1 class="profile__name">Александр Новоселов</h1>
             <button class="profile__edit-button" type="button" aria-label="Редактировать"></button>
           </div>
-          <p class="profile__description">Web-developer</p>
+          <p class="profile__description">Web-разработчик</p>
         </div>
         <button class="profile__add-button" type="button" aria-label="Добавить"></button>
       </section>
@@ -39,27 +40,11 @@
         <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
         <fieldset class="popup__fieldset">
-          <input
-            type="text"
-            id="input-name"
-            class="popup__input popup__input-name"
-            name="input-name"
-            value=""
-            minlength="2"
-            maxlength="40"
-            placeholder="Фамилия Имя"
-            required>
+          <input type="text" id="input-name" class="popup__input popup__input-name" name="input-name" value=""
+            minlength="2" maxlength="40" placeholder="Фамилия Имя" required>
           <span id="input-name-error" class="popup__span-error"></span>
-          <input
-            type="text"
-            id="input-prof"
-            class="popup__input popup__input-prof"
-            name="input-prof"
-            value=""
-            minlength="2"
-            maxlength="200"
-            placeholder="Профессия"
-            required>
+          <input type="text" id="input-prof" class="popup__input popup__input-prof" name="input-prof" value=""
+            minlength="2" maxlength="200" placeholder="Профессия" required>
           <span id="input-prof-error" class="popup__span-error"></span>
           <button type="submit" class="popup__submit-button">Сохранить</button>
         </fieldset>
@@ -71,25 +56,11 @@
         <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
         <h2 class="popup__title">Новое место</h2>
         <fieldset class="popup__fieldset">
-          <input
-            type="text"
-            id="card-name"
-            class="popup__input popup__input-name"
-            name="addCard-input-name"
-            value=""
-            minlength="2"
-            maxlength="30"
-            required
-            placeholder="Название">
+          <input type="text" id="card-name" class="popup__input popup__input-name" name="addCard-input-name" value=""
+            minlength="2" maxlength="30" required placeholder="Название">
           <span id="card-name-error" class="popup__span-error"></span>
-          <input
-            type="url"
-            id="card-link"
-            class="popup__input popup__input-prof"
-            name="addCard-input-link"
-            value=""
-            required
-            placeholder="Ссылка на картинку">
+          <input type="url" id="card-link" class="popup__input popup__input-prof" name="addCard-input-link" value=""
+            required placeholder="Ссылка на картинку">
           <span id="card-link-error" class="popup__span-error"></span>
           <button type="submit" class="popup__submit-button">Создать</button>
         </fieldset>
@@ -111,14 +82,8 @@
         <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
         <h2 class="popup__title">Обновить аватар</h2>
         <fieldset class="popup__fieldset">
-          <input
-            type="url"
-            id="avatar-link"
-            class="popup__input popup__input-avatar"
-            name="avatar-input-link"
-            value=""
-            required
-            placeholder="Ссылка на новый аватар">
+          <input type="url" id="avatar-link" class="popup__input popup__input-avatar" name="avatar-input-link" value=""
+            required placeholder="Ссылка на новый аватар">
           <span id="avatar-link-error" class="popup__span-error"></span>
           <button type="submit" class="popup__submit-button">Сохранить</button>
         </fieldset>
@@ -128,24 +93,25 @@
     <section class="popup popup_type_image popup_dark-background popup_centered">
       <div class="popup__container">
         <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
-        <img class="popup__image" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg" alt="">
+        <img class="popup__image" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg"
+          alt="">
         <h2 class="popup__image-title">Название фото</h2>
       </div>
     </section>
 
-  <template id="cardTemplate">
-    <div class="element">
-      <img class="element__image" src="<%=require('./images/falls-creek.jpg')%>" alt=" ">
-      <div class="element__title-block">
-        <h2 class="element__title"></h2>
-        <div class="element__like">
-          <button class="element__heart" type="button" aria-label="Нравится"></button>
-          <p class="element__like-counter">5</p>
+    <template id="cardTemplate">
+      <div class="element">
+        <img class="element__image" src="<%=require('./images/falls-creek.jpg')%>" alt=" ">
+        <div class="element__title-block">
+          <h2 class="element__title"></h2>
+          <div class="element__like">
+            <button class="element__heart" type="button" aria-label="Нравится"></button>
+            <p class="element__like-counter">5</p>
+          </div>
         </div>
+        <button class="element__delete" type="button" aria-label="Удалить"></button>
       </div>
-      <button class="element__delete" type="button" aria-label="Удалить"></button>
-    </div>
-  </template>
+    </template>
 
   </div>
 </body>

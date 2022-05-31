@@ -16,7 +16,6 @@ export default class Api {
       }),
     }).then((res) => {
       if (res.ok) {
-        // console.log('получили ОК поновой карте');
         return Promise.resolve(res.json());
       }
       return Promise.reject(`Ошибка: ${res.status}`);
@@ -35,7 +34,6 @@ export default class Api {
       }
     ).then((res) => {
       if (res.ok) {
-        // console.log('получили ОК по удалению карты');
         return Promise.resolve(res.json());
       }
       return Promise.reject(`Ошибка: ${res.status}`);
@@ -43,25 +41,18 @@ export default class Api {
   }
 
   getUserData() {
-    fetch("https://nomoreparties.co/v1/cohort-42/users/me", {
+    return fetch("https://nomoreparties.co/v1/cohort-42/users/me", {
       headers: {
         authorization: "59f5e864-0688-4993-901f-7b637899b27f",
       },
     })
-      .then((res) => res.json())
-      .then((result) => {
-        document.querySelector(".profile__name").textContent = result.name;
-        document.querySelector(".profile__description").textContent =
-          result.about;
-        document.querySelector(".profile__avatar").src = result.avatar;
-        // return Promise.resolve(result._id);
-        // myId = result._id;
-        // console.log(result._id);
-      })
-      // .then((result) => {return Promise.resolve(result._id);})
-      .catch((err) => {
-        console.log(err);
-      });
+    .then((res) => {
+      if (res.ok) {
+        return Promise.resolve(res.json());
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
+
   }
 
   getInitialCards() {
@@ -75,13 +66,8 @@ export default class Api {
           return Promise.resolve(res.json());
         }
         return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
       });
   }
-
-  getAllDataToRender() {}
 
   replaceUSerData(newData) {
     return fetch("https://mesto.nomoreparties.co/v1/cohort-42/users/me", {
@@ -139,7 +125,6 @@ export default class Api {
   }
 
   updateAvatar(newData) {
-    //PATCH https://mesto.nomoreparties.co/v1/cohort-42/users/me/avatar
     return fetch(
       "https://mesto.nomoreparties.co/v1/cohort-42/users/me/avatar",
       {
@@ -148,9 +133,7 @@ export default class Api {
           authorization: "59f5e864-0688-4993-901f-7b637899b27f",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(
-          newData,
-        )
+        body: JSON.stringify(newData),
       }
     ).then((res) => {
       if (res.ok) {

@@ -3,12 +3,13 @@
   height: 120px;
   margin: 0;
   margin-right: 30px;
-  object-fit: contain;
+  object-fit: cover;
   border-radius: 60px;
 }
 
 .profile__avatar:hover {
-  cursor: url("../../../images/pointer-pencil.svg"), pointer;
+  cursor: url("../../../images/pointer-pencil.svg") 0 33, pointer;
+  opacity: 0.6;
 }
 
 @media screen and (max-width: 767px) {
