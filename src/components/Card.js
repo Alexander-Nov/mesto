@@ -30,7 +30,7 @@ export class Card {
 
   _deleteCardFromDOM() {
     this._element.remove();
-    this._cardElement = null;
+    this._element = null;
   }
 
   _setEventListeners() {
