@@ -16,18 +16,18 @@ export default class PopupWithSubmit extends Popup {
     }
   }
 
-  open(cardId, element) {
+  open(cardId, element, card) {
     this._currentCardId = cardId;
     this._currentElement = element;
-    this._popup.classList.add("popup_opened");
-    document.addEventListener("keydown", this._handleEscClose);
+    this._card = card;
+    super.open();
   }
 
   setEventListeners() {
     super.setEventListeners();
     this._form.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      this._formSubmitter(this._currentCardId, this._currentElement);
+      this._formSubmitter(this._currentCardId, this._currentElement, this._card);
     });
   }
 }
