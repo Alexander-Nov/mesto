@@ -31,7 +31,7 @@ const user = new UserInfo ({
 });
 
 const api = new Api({
-  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-42/cards",
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-42",
   headers: {
     authorization: "59f5e864-0688-4993-901f-7b637899b27f",
         "content-type": "application/json"

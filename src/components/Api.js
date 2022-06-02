@@ -12,7 +12,7 @@ export default class Api {
 }
 
   postNewCard(newCardData) {
-    return fetch(this._baseUrl, {
+    return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
@@ -26,7 +26,7 @@ export default class Api {
 
   deleteCard(cardId, card) {
     return fetch(
-      `${this._baseUrl}/${cardId}`,
+      `${this._baseUrl}/cards/${cardId}`,
       {
         method: "DELETE",
         headers: this._headers,
@@ -37,7 +37,7 @@ export default class Api {
   }
 
   getUserData() {
-    return fetch("https://nomoreparties.co/v1/cohort-42/users/me", {
+    return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
     })
     .then((res) => {
@@ -47,7 +47,7 @@ export default class Api {
   }
 
   getInitialCards() {
-    return fetch(this._baseUrl, {
+    return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
     })
       .then((res) => {
@@ -56,7 +56,7 @@ export default class Api {
   }
 
   replaceUSerData(newData) {
-    return fetch("https://mesto.nomoreparties.co/v1/cohort-42/users/me", {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
@@ -70,7 +70,7 @@ export default class Api {
 
   addLike(cardId) {
     return fetch(
-      `${this._baseUrl}/${cardId}/likes`,
+      `${this._baseUrl}/cards/${cardId}/likes`,
       {
         method: "PUT",
         headers: this._headers,
@@ -82,7 +82,7 @@ export default class Api {
 
   deleteLike(cardId) {
     return fetch(
-      `${this._baseUrl}/${cardId}/likes`,
+      `${this._baseUrl}/cards/${cardId}/likes`,
       {
         method: "DELETE",
         headers: this._headers,
@@ -94,7 +94,7 @@ export default class Api {
 
   updateAvatar(newData) {
     return fetch(
-      "https://mesto.nomoreparties.co/v1/cohort-42/users/me/avatar",
+      `${this._baseUrl}/users/me/avatar`,
       {
         method: "PATCH",
         headers: this._headers,
