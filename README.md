@@ -48,21 +48,21 @@
 
 
 #### В сборке используются следущие плагины:
-Babel-core
-Babel-loader
-Babel-preset
-Autoprefixer
-Clean plugin
-Css-loader
-Cssnano
-Gh-pages
-HTML Webpack Plugin
-Mini-css-extract-plugin
-Postcss-loader
-Webpack
-Webpack
-Webpack-dev-server
-Core-js
+◻️ Babel-core</br>
+◻️ Babel-loader</br>
+◻️ Babel-preset</br>
+◻️ Autoprefixer</br>
+◻️ Clean plugin</br>
+◻️ Css-loader</br>
+◻️ Cssnano</br>
+◻️ Gh-pages</br>
+◻️ HTML Webpack Plugin</br>
+◻️ Mini-css-extract-plugin</br>
+◻️ Postcss-loader</br>
+◻️ Webpack</br>
+◻️ Webpack</br>
+◻️ Webpack-dev-server</br>
+◻️ Core-js</br>
 
 
 [**Демо страницы на GitHub Pages**](https://alexander-nov.github.io/mesto/)
